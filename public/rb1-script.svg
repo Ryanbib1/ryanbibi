@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160" role="img" aria-labelledby="title desc">
+  <title id="title">RB1 Flow Script</title>
+  <desc id="desc">A smoother connected uppercase RB1 mark with one continuous stroke.</desc>
+  <rect width="160" height="160" rx="30" fill="#0f172a"/>
+  <path d="M31 93c12-31 31-48 57-48 17 0 28 9 28 22 0 15-13 24-34 24H55" fill="none" stroke="#fff7ea" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M54 91h34c22 0 35 9 35 25 0 17-14 28-37 28H44V54" fill="none" stroke="#fff7ea" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M93 91h28" stroke="#14b8a6" stroke-width="9" stroke-linecap="round"/>
+  <path d="M126 47v77" stroke="#14b8a6" stroke-width="12" stroke-linecap="round"/>
+  <circle cx="126" cy="33" r="5" fill="#f43f5e"/>
+  <path d="M45 126h74" stroke="#f59e0b" stroke-width="6" stroke-linecap="round"/>
+</svg>

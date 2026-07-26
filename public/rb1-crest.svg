@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160" role="img" aria-labelledby="title desc">
+  <title id="title">RB1 Crew Crest</title>
+  <desc id="desc">A connected rb1 crest inspired by player tags and club badges.</desc>
+  <path d="M80 8 140 35v47c0 35-24 58-60 70-36-12-60-35-60-70V35L80 8Z" fill="#0f172a"/>
+  <path d="M80 20 128 42v39c0 27-18 47-48 58-30-11-48-31-48-58V42l48-22Z" fill="none" stroke="#fff7ea" stroke-opacity=".16" stroke-width="3"/>
+  <text x="34" y="91" fill="#fff7ea" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="48" font-weight="950" letter-spacing="-7">rb</text>
+  <path d="M89 73h25" stroke="#f59e0b" stroke-width="8" stroke-linecap="round"/>
+  <text x="107" y="93" fill="#14b8a6" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="48" font-weight="950" letter-spacing="-5">1</text>
+  <path d="M52 112h58" stroke="#f43f5e" stroke-width="6" stroke-linecap="round"/>
+  <path d="M62 124h38" stroke="#14b8a6" stroke-width="6" stroke-linecap="round"/>
+</svg>

@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="520" height="180" viewBox="0 0 520 180" role="img" aria-label="Ink brush">
+  <defs>
+    <filter id="brush-rough" x="-8%" y="-30%" width="116%" height="160%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.025 0.12" numOctaves="3" seed="12" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="8"/>
+      <feGaussianBlur stdDeviation="0.35"/>
+    </filter>
+    <linearGradient id="handle" x1="0" x2="1">
+      <stop stop-color="#6b4f32" stop-opacity="0.7"/>
+      <stop offset="0.52" stop-color="#d5b37c" stop-opacity="0.74"/>
+      <stop offset="1" stop-color="#4d3525" stop-opacity="0.62"/>
+    </linearGradient>
+  </defs>
+  <g filter="url(#brush-rough)" transform="rotate(-8 260 90)">
+    <path d="M50 88h315c27 0 47 9 62 27-17 10-40 15-69 15H48c-18 0-29-7-31-20 5-15 16-22 33-22Z" fill="url(#handle)"/>
+    <path d="M365 88c32-28 71-43 117-45 21-1 27 10 18 31-14 35-53 55-117 61-6-23-12-38-18-47Z" fill="#1c1a17" opacity="0.74"/>
+    <path d="M409 62c31-8 58-7 82 3-20 12-47 22-82 31-10-10-10-22 0-34Z" fill="#fff7ea" opacity="0.24"/>
+    <path d="M18 104c20-8 39-8 58 0" fill="none" stroke="#1c1a17" stroke-linecap="round" stroke-width="5" opacity="0.32"/>
+  </g>
+</svg>

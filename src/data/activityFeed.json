@@ -1,0 +1,354 @@
+{
+  "updatedAt": "2026-07-13",
+  "counts": {
+    "restaurants": 6,
+    "projects": 3,
+    "site": 3
+  },
+  "highlights": {
+    "restaurant": {
+      "id": "restaurant-0526-richang-restaurant",
+      "type": "restaurant",
+      "date": "2026-07-10",
+      "section": {
+        "en": "Food Atlas",
+        "zh": "美食地图"
+      },
+      "title": {
+        "en": "Richa Restaurant",
+        "zh": "日昌餐馆"
+      },
+      "detail": {
+        "en": "Beijing · Fengtai District",
+        "zh": "Beijing · 丰台区"
+      },
+      "href": "#/food/place/0526-richang-restaurant",
+      "meta": {
+        "en": "New restaurant",
+        "zh": "新增餐厅"
+      }
+    },
+    "project": {
+      "date": "2026-07-13",
+      "project": "ryanbibi digital garden",
+      "stage": "shipped",
+      "progress": 100,
+      "title": {
+        "en": "Structured bilingual system shipped",
+        "zh": "结构化双语系统已上线"
+      },
+      "detail": {
+        "en": "Lab, Food City, Choice, and Vault now render reviewed English and Chinese copy directly through React.",
+        "zh": "Lab、Food City、Choice 与 Vault 现已通过 React 直接渲染经过精修的中英文文案。"
+      },
+      "href": "#/home",
+      "id": "project-0-2026-07-13",
+      "type": "project",
+      "section": {
+        "en": "ryanbibi digital garden",
+        "zh": "ryanbibi digital garden"
+      },
+      "meta": {
+        "en": "Shipped",
+        "zh": "已上线"
+      }
+    },
+    "site": {
+      "date": "2026-07-10",
+      "section": {
+        "en": "Portfolio",
+        "zh": "Portfolio"
+      },
+      "title": {
+        "en": "LinkedIn timeline synced",
+        "zh": "LinkedIn 职业时间线已同步"
+      },
+      "detail": {
+        "en": "Current AI roles, Lenovo analytics work, research, and education now share one verified timeline.",
+        "zh": "当前 AI 岗位、Lenovo 数据经历、研究与教育背景已汇入同一条可核验时间线。"
+      },
+      "href": "#/portfolio",
+      "id": "site-0-2026-07-10",
+      "type": "site",
+      "meta": {
+        "en": "Site update",
+        "zh": "站点更新"
+      }
+    }
+  },
+  "items": [
+    {
+      "date": "2026-07-13",
+      "project": "ryanbibi digital garden",
+      "stage": "shipped",
+      "progress": 100,
+      "title": {
+        "en": "Structured bilingual system shipped",
+        "zh": "结构化双语系统已上线"
+      },
+      "detail": {
+        "en": "Lab, Food City, Choice, and Vault now render reviewed English and Chinese copy directly through React.",
+        "zh": "Lab、Food City、Choice 与 Vault 现已通过 React 直接渲染经过精修的中英文文案。"
+      },
+      "href": "#/home",
+      "id": "project-0-2026-07-13",
+      "type": "project",
+      "section": {
+        "en": "ryanbibi digital garden",
+        "zh": "ryanbibi digital garden"
+      },
+      "meta": {
+        "en": "Shipped",
+        "zh": "已上线"
+      }
+    },
+    {
+      "date": "2026-07-12",
+      "project": "ryanbibi digital garden",
+      "stage": "shipped",
+      "progress": 100,
+      "title": {
+        "en": "Route-level performance split completed",
+        "zh": "路由级性能拆包完成"
+      },
+      "detail": {
+        "en": "Food, Vault, Life, and the 3D entry now load independently; the homepage no longer carries the full restaurant archive.",
+        "zh": "Food、Vault、Life 与 3D 开场已独立加载，首页不再携带完整餐厅档案。"
+      },
+      "href": "#/lab",
+      "id": "project-1-2026-07-12",
+      "type": "project",
+      "section": {
+        "en": "ryanbibi digital garden",
+        "zh": "ryanbibi digital garden"
+      },
+      "meta": {
+        "en": "Shipped",
+        "zh": "已上线"
+      }
+    },
+    {
+      "date": "2026-07-10",
+      "project": "Food Atlas",
+      "stage": "active",
+      "progress": 82,
+      "title": {
+        "en": "Food data pipeline entered active development",
+        "zh": "Food 数据管线进入持续建设阶段"
+      },
+      "detail": {
+        "en": "Restaurant status, memory cards, coordinate quality, and CSV/Excel imports now share one maintainable schema.",
+        "zh": "餐厅状态、记忆卡、坐标质量与 CSV/Excel 导入已纳入同一套可维护结构。"
+      },
+      "href": "#/food",
+      "id": "project-2-2026-07-10",
+      "type": "project",
+      "section": {
+        "en": "Food Atlas",
+        "zh": "Food Atlas"
+      },
+      "meta": {
+        "en": "In progress",
+        "zh": "进行中"
+      }
+    },
+    {
+      "id": "restaurant-0526-richang-restaurant",
+      "type": "restaurant",
+      "date": "2026-07-10",
+      "section": {
+        "en": "Food Atlas",
+        "zh": "美食地图"
+      },
+      "title": {
+        "en": "Richa Restaurant",
+        "zh": "日昌餐馆"
+      },
+      "detail": {
+        "en": "Beijing · Fengtai District",
+        "zh": "Beijing · 丰台区"
+      },
+      "href": "#/food/place/0526-richang-restaurant",
+      "meta": {
+        "en": "New restaurant",
+        "zh": "新增餐厅"
+      }
+    },
+    {
+      "id": "restaurant-0525-grid-coffee",
+      "type": "restaurant",
+      "date": "2026-07-10",
+      "section": {
+        "en": "Food Atlas",
+        "zh": "美食地图"
+      },
+      "title": {
+        "en": "grid coffee",
+        "zh": "grid coffee"
+      },
+      "detail": {
+        "en": "Beijing · Haidian District",
+        "zh": "Beijing · 海淀区"
+      },
+      "href": "#/food/place/0525-grid-coffee",
+      "meta": {
+        "en": "New restaurant",
+        "zh": "新增餐厅"
+      }
+    },
+    {
+      "id": "restaurant-0524-guangzhou-shunde-restaurant",
+      "type": "restaurant",
+      "date": "2026-07-10",
+      "section": {
+        "en": "Food Atlas",
+        "zh": "美食地图"
+      },
+      "title": {
+        "en": "Guangzhou Shunde Restaurant",
+        "zh": "广州顺德酒家"
+      },
+      "detail": {
+        "en": "Beijing · Haidian District",
+        "zh": "Beijing · 海淀区"
+      },
+      "href": "#/food/place/0524-guangzhou-shunde-restaurant",
+      "meta": {
+        "en": "New restaurant",
+        "zh": "新增餐厅"
+      }
+    },
+    {
+      "id": "restaurant-0523-zhuye",
+      "type": "restaurant",
+      "date": "2026-07-10",
+      "section": {
+        "en": "Food Atlas",
+        "zh": "美食地图"
+      },
+      "title": {
+        "en": "Zhuye Tea",
+        "zh": "煮葉"
+      },
+      "detail": {
+        "en": "Beijing · Haidian District",
+        "zh": "Beijing · 海淀区"
+      },
+      "href": "#/food/place/0523-zhuye",
+      "meta": {
+        "en": "New restaurant",
+        "zh": "新增餐厅"
+      }
+    },
+    {
+      "id": "restaurant-0522-siye",
+      "type": "restaurant",
+      "date": "2026-07-10",
+      "section": {
+        "en": "Food Atlas",
+        "zh": "美食地图"
+      },
+      "title": {
+        "en": "Siye",
+        "zh": "四葉"
+      },
+      "detail": {
+        "en": "Beijing · Haidian District",
+        "zh": "Beijing · 海淀区"
+      },
+      "href": "#/food/place/0522-siye",
+      "meta": {
+        "en": "New restaurant",
+        "zh": "新增餐厅"
+      }
+    },
+    {
+      "id": "restaurant-0521-mi-chongshan-hotpot",
+      "type": "restaurant",
+      "date": "2026-07-10",
+      "section": {
+        "en": "Food Atlas",
+        "zh": "美食地图"
+      },
+      "title": {
+        "en": "Mi Chongshan Chongqing Hotpot",
+        "zh": "芈重山重庆火锅"
+      },
+      "detail": {
+        "en": "Beijing · Haidian District",
+        "zh": "Beijing · 海淀区"
+      },
+      "href": "#/food/place/0521-mi-chongshan-hotpot",
+      "meta": {
+        "en": "New restaurant",
+        "zh": "新增餐厅"
+      }
+    },
+    {
+      "date": "2026-07-10",
+      "section": {
+        "en": "Portfolio",
+        "zh": "Portfolio"
+      },
+      "title": {
+        "en": "LinkedIn timeline synced",
+        "zh": "LinkedIn 职业时间线已同步"
+      },
+      "detail": {
+        "en": "Current AI roles, Lenovo analytics work, research, and education now share one verified timeline.",
+        "zh": "当前 AI 岗位、Lenovo 数据经历、研究与教育背景已汇入同一条可核验时间线。"
+      },
+      "href": "#/portfolio",
+      "id": "site-0-2026-07-10",
+      "type": "site",
+      "meta": {
+        "en": "Site update",
+        "zh": "站点更新"
+      }
+    },
+    {
+      "date": "2026-07-10",
+      "section": {
+        "en": "Food Atlas",
+        "zh": "Food Atlas"
+      },
+      "title": {
+        "en": "Choice memories separated from the directory",
+        "zh": "Choice 记忆与普通餐厅记录完成分层"
+      },
+      "detail": {
+        "en": "Choice entries carry stories and dishes; regular restaurants stay lightweight and easy to scan.",
+        "zh": "Choice 承载故事和推荐菜，普通餐厅保持轻量、清晰、易浏览。"
+      },
+      "href": "#/food",
+      "id": "site-1-2026-07-10",
+      "type": "site",
+      "meta": {
+        "en": "Site update",
+        "zh": "站点更新"
+      }
+    },
+    {
+      "date": "2026-07-10",
+      "section": {
+        "en": "Lab",
+        "zh": "Lab"
+      },
+      "title": {
+        "en": "Interactive experiments moved into the Lab",
+        "zh": "互动作品正式迁入 Lab"
+      },
+      "detail": {
+        "en": "The former Work route is now a clearer home for generative, audio, canvas, and game experiments.",
+        "zh": "原 Work 入口升级为更清晰的实验室，用于生成艺术、声音、Canvas 与游戏作品。"
+      },
+      "href": "#/lab",
+      "id": "site-2-2026-07-10",
+      "type": "site",
+      "meta": {
+        "en": "Site update",
+        "zh": "站点更新"
+      }
+    }
+  ]
+}

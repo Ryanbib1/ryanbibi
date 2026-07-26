@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160" role="img" aria-labelledby="title desc">
+  <title id="title">RB Flow Mark</title>
+  <desc id="desc">A connected uppercase RB monogram with a smooth shared stroke.</desc>
+  <rect width="160" height="160" rx="30" fill="#0f172a"/>
+  <path d="M32 96c13-33 34-51 62-51 18 0 30 9 30 23 0 16-14 25-36 25H58" fill="none" stroke="#fff7ea" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M56 91h34c23 0 36 10 36 27 0 18-15 29-39 29H45V55" fill="none" stroke="#fff7ea" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M45 124h80" stroke="#f59e0b" stroke-width="6" stroke-linecap="round"/>
+  <circle cx="126" cy="36" r="6" fill="#f43f5e"/>
+  <path d="M105 94h24" stroke="#14b8a6" stroke-width="8" stroke-linecap="round"/>
+</svg>

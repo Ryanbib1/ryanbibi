@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160" role="img" aria-labelledby="title desc">
+  <title id="title">RB Pro Crest</title>
+  <desc id="desc">A premium connected RB crest without the numeric one.</desc>
+  <path d="M80 12 136 42v40c0 34-22 56-56 68-34-12-56-34-56-68V42l56-30Z" fill="#0f172a"/>
+  <path d="M80 25 124 49v33c0 27-16 45-44 55-28-10-44-28-44-55V49l44-24Z" fill="none" stroke="#fff7ea" stroke-opacity=".18" stroke-width="3"/>
+  <path d="M50 110V55h29c13 0 22 7 22 18s-9 18-22 18H64" fill="none" stroke="#fff7ea" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M64 89h21c16 0 26 8 26 21 0 14-10 22-26 22H64" fill="none" stroke="#fff7ea" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M58 125h45" stroke="#f59e0b" stroke-width="5" stroke-linecap="round"/>
+  <circle cx="80" cy="42" r="4.5" fill="#f43f5e"/>
+  <path d="M101 91h17" stroke="#14b8a6" stroke-width="7" stroke-linecap="round"/>
+</svg>

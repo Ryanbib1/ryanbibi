@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="160" viewBox="0 0 900 160" role="img" aria-label="Ink brush stroke">
+  <defs>
+    <filter id="rough-ink" x="-10%" y="-80%" width="120%" height="260%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.024 0.18" numOctaves="3" seed="31" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="18"/>
+      <feGaussianBlur stdDeviation="0.6"/>
+    </filter>
+    <linearGradient id="stroke-fade" x1="0" x2="1">
+      <stop stop-color="#1c1a17" stop-opacity="0"/>
+      <stop offset="0.12" stop-color="#1c1a17" stop-opacity="0.22"/>
+      <stop offset="0.5" stop-color="#1c1a17" stop-opacity="0.34"/>
+      <stop offset="0.88" stop-color="#1c1a17" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#1c1a17" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <path filter="url(#rough-ink)" d="M16 93C146 41 285 37 433 79c121 34 225 34 337-4 50-17 88-17 115 1-57 24-120 40-190 48-102 12-210 3-324-27-107-28-225-21-355 21Z" fill="url(#stroke-fade)"/>
+</svg>

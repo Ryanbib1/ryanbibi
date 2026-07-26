@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160" role="img" aria-labelledby="title desc">
+  <title id="title">RB1 Pro Badge</title>
+  <desc id="desc">A premium uppercase RB1 badge with connected team-mark geometry.</desc>
+  <rect width="160" height="160" rx="30" fill="#f7efe2"/>
+  <path d="M80 18 134 48v64l-54 30-54-30V48l54-30Z" fill="#0f172a"/>
+  <path d="M80 31 122 55v50l-42 24-42-24V55l42-24Z" fill="none" stroke="#fff7ea" stroke-opacity=".18" stroke-width="3"/>
+  <path d="M49 106V55h26c12 0 20 7 20 17s-8 17-20 17H64" fill="none" stroke="#fff7ea" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M64 87h18c13 0 21 7 21 18s-8 18-21 18H64" fill="none" stroke="#fff7ea" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M96 86h19" stroke="#14b8a6" stroke-width="8" stroke-linecap="round"/>
+  <path d="M116 56v56" stroke="#14b8a6" stroke-width="10" stroke-linecap="round"/>
+  <path d="M107 64l9-8 9 8" fill="none" stroke="#14b8a6" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="80" cy="42" r="4" fill="#f43f5e"/>
+  <path d="M61 127h38" stroke="#f59e0b" stroke-width="5" stroke-linecap="round"/>
+</svg>

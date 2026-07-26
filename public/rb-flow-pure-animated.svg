@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160" role="img" aria-labelledby="title desc">
+  <title id="title">RB Flow Pure Animated Mark</title>
+  <desc id="desc">A connected uppercase RB monogram drawn with animated strokes.</desc>
+  <style>
+    .plate {
+      animation: plate-in 520ms ease-out both;
+      transform-box: fill-box;
+      transform-origin: center;
+    }
+
+    .stroke {
+      fill: none;
+      stroke: #fff7ea;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-dasharray: 100;
+      stroke-dashoffset: 100;
+    }
+
+    .stroke-top {
+      animation: draw 1100ms 240ms cubic-bezier(.58, .02, .16, .98) both;
+    }
+
+    .stroke-body {
+      animation: draw 1450ms 840ms cubic-bezier(.58, .02, .16, .98) both;
+    }
+
+    @keyframes plate-in {
+      from {
+        opacity: 0;
+        transform: scale(.94);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes draw {
+      from {
+        stroke-dashoffset: 100;
+      }
+      to {
+        stroke-dashoffset: 0;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .plate,
+      .stroke-top,
+      .stroke-body {
+        animation: none;
+      }
+
+      .stroke {
+        stroke-dashoffset: 0;
+      }
+    }
+  </style>
+  <rect class="plate" width="160" height="160" rx="30" fill="#0f172a"/>
+  <path class="stroke stroke-top" pathLength="100" d="M32 80c13-33 34-51 62-51 18 0 30 9 30 23 0 16-14 25-36 25H58" stroke-width="14"/>
+  <path class="stroke stroke-body" pathLength="100" d="M56 75h34c23 0 36 10 36 27 0 18-15 29-39 29H45V39" stroke-width="14"/>
+</svg>

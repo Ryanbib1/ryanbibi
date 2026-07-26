@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160" role="img" aria-labelledby="title desc">
+  <title id="title">RB1 Negative Space</title>
+  <desc id="desc">An uppercase RB mark where the 1 appears as negative-space signal geometry.</desc>
+  <rect width="160" height="160" rx="30" fill="#0f172a"/>
+  <path d="M28 32h104v96H28z" fill="#fff7ea"/>
+  <path d="M44 116V49h36c14 0 23 8 23 21 0 12-9 20-23 20H62" fill="none" stroke="#0f172a" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M62 88h22c17 0 27 8 27 23 0 15-10 23-27 23H62" fill="none" stroke="#0f172a" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M106 48h15v79h-15z" fill="#0f172a"/>
+  <path d="M103 48h21l-11-13z" fill="#0f172a"/>
+  <rect x="34" y="135" width="30" height="7" rx="3.5" fill="#f43f5e"/>
+  <rect x="70" y="135" width="24" height="7" rx="3.5" fill="#f59e0b"/>
+  <rect x="100" y="135" width="28" height="7" rx="3.5" fill="#14b8a6"/>
+</svg>

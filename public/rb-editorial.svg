@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160" role="img" aria-labelledby="title desc">
+  <title id="title">RB Editorial Mark</title>
+  <desc id="desc">A connected RB mark with editorial serif weight and a personal studio feel.</desc>
+  <rect width="160" height="160" rx="18" fill="#fffaf2"/>
+  <rect x="18" y="18" width="124" height="124" rx="14" fill="none" stroke="#0f172a" stroke-width="5"/>
+  <path d="M45 113V49h35c16 0 27 8 27 21 0 14-11 22-27 22H62" fill="none" stroke="#0f172a" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M62 90h26c18 0 29 8 29 23 0 15-11 24-29 24H62" fill="none" stroke="#0f172a" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M44 123h75" stroke="#0f172a" stroke-width="5" stroke-linecap="round"/>
+  <path d="M44 132h31" stroke="#f43f5e" stroke-width="5" stroke-linecap="round"/>
+  <path d="M82 132h25" stroke="#f59e0b" stroke-width="5" stroke-linecap="round"/>
+  <path d="M114 132h17" stroke="#14b8a6" stroke-width="5" stroke-linecap="round"/>
+</svg>

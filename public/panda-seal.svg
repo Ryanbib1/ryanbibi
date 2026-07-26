@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="140" height="140" viewBox="0 0 140 140" role="img" aria-label="Panda seal">
+  <defs>
+    <filter id="seal-rough" x="-12%" y="-12%" width="124%" height="124%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.06" numOctaves="2" seed="9" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="3"/>
+    </filter>
+  </defs>
+  <g filter="url(#seal-rough)">
+    <rect x="12" y="12" width="116" height="116" rx="24" fill="#b91c1c" opacity="0.9"/>
+    <rect x="22" y="22" width="96" height="96" rx="18" fill="none" stroke="#fff7ea" stroke-width="5" opacity="0.72"/>
+    <circle cx="70" cy="72" r="38" fill="#fff7ea" opacity="0.95"/>
+    <ellipse cx="45" cy="50" rx="17" ry="22" fill="#111827" transform="rotate(-28 45 50)"/>
+    <ellipse cx="95" cy="50" rx="17" ry="22" fill="#111827" transform="rotate(28 95 50)"/>
+    <ellipse cx="55" cy="72" rx="10" ry="14" fill="#111827" transform="rotate(20 55 72)"/>
+    <ellipse cx="85" cy="72" rx="10" ry="14" fill="#111827" transform="rotate(-20 85 72)"/>
+    <circle cx="58" cy="69" r="3" fill="#fff7ea"/>
+    <circle cx="82" cy="69" r="3" fill="#fff7ea"/>
+    <ellipse cx="70" cy="86" rx="8" ry="6" fill="#111827"/>
+    <path d="M59 96c8 7 15 7 22 0" fill="none" stroke="#111827" stroke-linecap="round" stroke-width="5"/>
+  </g>
+</svg>

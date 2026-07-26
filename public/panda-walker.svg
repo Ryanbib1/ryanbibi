@@ -1,0 +1,245 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="232" viewBox="0 0 300 232" role="img" aria-label="Walking plush panda mascot">
+  <defs>
+    <filter id="soft-shadow" x="-24%" y="-24%" width="148%" height="158%">
+      <feDropShadow dx="0" dy="14" stdDeviation="10" flood-color="#0f172a" flood-opacity="0.18"/>
+      <feDropShadow dx="-4" dy="4" stdDeviation="5" flood-color="#ffffff" flood-opacity="0.34"/>
+    </filter>
+    <filter id="fur-soft" x="-16%" y="-16%" width="132%" height="132%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.052" numOctaves="2" seed="31" result="furNoise"/>
+      <feDisplacementMap in="SourceGraphic" in2="furNoise" scale="1.75" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <filter id="micro-fluff" x="-20%" y="-20%" width="140%" height="140%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.11" numOctaves="2" seed="72" result="grain"/>
+      <feColorMatrix in="grain" type="matrix" values="0 0 0 0 0.98 0 0 0 0 0.94 0 0 0 0 0.84 0 0 0 0.32 0" result="grainColor"/>
+      <feComposite in="grainColor" in2="SourceAlpha" operator="in" result="maskedGrain"/>
+      <feBlend in="SourceGraphic" in2="maskedGrain" mode="screen"/>
+    </filter>
+    <radialGradient id="white-fur" cx="38%" cy="24%" r="76%">
+      <stop stop-color="#ffffff"/>
+      <stop offset="0.42" stop-color="#fffaf0"/>
+      <stop offset="1" stop-color="#eadfca"/>
+    </radialGradient>
+    <radialGradient id="black-fur" cx="38%" cy="20%" r="84%">
+      <stop stop-color="#354156"/>
+      <stop offset="0.5" stop-color="#111827"/>
+      <stop offset="1" stop-color="#060b16"/>
+    </radialGradient>
+    <linearGradient id="leaf-glow" x1="0" x2="1" y1="0" y2="1">
+      <stop stop-color="#58d68d"/>
+      <stop offset="1" stop-color="#15803d"/>
+    </linearGradient>
+    <style>
+      .panda {
+        animation: panda-bob 1.85s ease-in-out infinite;
+        filter: url(#soft-shadow);
+        transform-box: fill-box;
+        transform-origin: 50% 78%;
+      }
+
+      .head {
+        animation: head-float 2.2s ease-in-out infinite;
+        transform-box: fill-box;
+        transform-origin: center;
+      }
+
+      .ear-left {
+        animation: ear-left 2.9s ease-in-out infinite;
+        transform-box: fill-box;
+        transform-origin: 72% 82%;
+      }
+
+      .ear-right {
+        animation: ear-right 2.9s ease-in-out infinite;
+        transform-box: fill-box;
+        transform-origin: 28% 82%;
+      }
+
+      .arm-left {
+        animation: arm-left 1.85s ease-in-out infinite;
+        transform-box: fill-box;
+        transform-origin: 82% 18%;
+      }
+
+      .arm-right {
+        animation: arm-right 1.85s ease-in-out infinite;
+        transform-box: fill-box;
+        transform-origin: 18% 18%;
+      }
+
+      .leg-left {
+        animation: leg-left 1.85s ease-in-out infinite;
+        transform-box: fill-box;
+        transform-origin: 78% 22%;
+      }
+
+      .leg-right {
+        animation: leg-right 1.85s ease-in-out infinite;
+        transform-box: fill-box;
+        transform-origin: 22% 22%;
+      }
+
+      .eye-dot {
+        animation: blink 5.8s ease-in-out infinite;
+        transform-box: fill-box;
+        transform-origin: center;
+      }
+
+      .mouth {
+        animation: mouth-soft 4.4s ease-in-out infinite;
+      }
+
+      .blush {
+        animation: blush-pulse 3.3s ease-in-out infinite;
+      }
+
+      .leaf {
+        animation: leaf-nibble 3.1s ease-in-out infinite;
+        transform-box: fill-box;
+        transform-origin: 10% 88%;
+      }
+
+      .fur-edge,
+      .fur-spark {
+        animation: fur-breathe 2.8s ease-in-out infinite;
+      }
+
+      @keyframes panda-bob {
+        0%, 100% { transform: translateY(0) rotate(-1.1deg) scale(1); }
+        50% { transform: translateY(-6px) rotate(1.2deg) scale(1.015); }
+      }
+
+      @keyframes head-float {
+        0%, 100% { transform: translateY(0) rotate(0deg); }
+        50% { transform: translateY(-2px) rotate(0.8deg); }
+      }
+
+      @keyframes ear-left {
+        0%, 100% { transform: rotate(0deg); }
+        45% { transform: rotate(-6deg); }
+      }
+
+      @keyframes ear-right {
+        0%, 100% { transform: rotate(0deg); }
+        45% { transform: rotate(6deg); }
+      }
+
+      @keyframes arm-left {
+        0%, 100% { transform: translateY(0) rotate(10deg); }
+        50% { transform: translateY(3px) rotate(-14deg); }
+      }
+
+      @keyframes arm-right {
+        0%, 100% { transform: translateY(3px) rotate(-13deg); }
+        50% { transform: translateY(0) rotate(12deg); }
+      }
+
+      @keyframes leg-left {
+        0%, 100% { transform: translateY(1px) rotate(-12deg); }
+        50% { transform: translateY(-2px) rotate(13deg); }
+      }
+
+      @keyframes leg-right {
+        0%, 100% { transform: translateY(-2px) rotate(13deg); }
+        50% { transform: translateY(1px) rotate(-12deg); }
+      }
+
+      @keyframes blink {
+        0%, 44%, 49%, 100% { transform: scaleY(1); }
+        46% { transform: scaleY(0.12); }
+      }
+
+      @keyframes mouth-soft {
+        0%, 100% { opacity: 0.78; }
+        50% { opacity: 1; }
+      }
+
+      @keyframes blush-pulse {
+        0%, 100% { opacity: 0.35; }
+        50% { opacity: 0.66; }
+      }
+
+      @keyframes leaf-nibble {
+        0%, 100% { transform: rotate(-6deg) translateY(0); }
+        50% { transform: rotate(8deg) translateY(-2px); }
+      }
+
+      @keyframes fur-breathe {
+        0%, 100% { opacity: 0.38; }
+        50% { opacity: 0.62; }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .panda,
+        .head,
+        .ear-left,
+        .ear-right,
+        .arm-left,
+        .arm-right,
+        .leg-left,
+        .leg-right,
+        .eye-dot,
+        .mouth,
+        .blush,
+        .leaf,
+        .fur-edge,
+        .fur-spark {
+          animation: none;
+        }
+      }
+    </style>
+  </defs>
+
+  <ellipse cx="150" cy="207" rx="84" ry="15" fill="#0f172a" opacity="0.1"/>
+  <g class="panda">
+    <g class="leg-left">
+      <ellipse cx="103" cy="177" rx="29" ry="23" fill="url(#black-fur)" filter="url(#fur-soft)"/>
+      <ellipse cx="94" cy="169" rx="9" ry="5" fill="#ffffff" opacity="0.1"/>
+    </g>
+    <g class="leg-right">
+      <ellipse cx="195" cy="177" rx="29" ry="23" fill="url(#black-fur)" filter="url(#fur-soft)"/>
+      <ellipse cx="186" cy="169" rx="9" ry="5" fill="#ffffff" opacity="0.1"/>
+    </g>
+
+    <ellipse cx="150" cy="141" rx="70" ry="62" fill="url(#black-fur)" filter="url(#fur-soft)"/>
+    <ellipse cx="150" cy="144" rx="48" ry="50" fill="url(#white-fur)" filter="url(#micro-fluff)"/>
+    <ellipse cx="134" cy="119" rx="20" ry="11" fill="#ffffff" opacity="0.16"/>
+
+    <g class="arm-left">
+      <ellipse cx="88" cy="133" rx="20" ry="42" fill="url(#black-fur)" filter="url(#fur-soft)"/>
+      <ellipse cx="83" cy="112" rx="7" ry="12" fill="#ffffff" opacity="0.08"/>
+    </g>
+    <g class="arm-right">
+      <ellipse cx="212" cy="133" rx="20" ry="42" fill="url(#black-fur)" filter="url(#fur-soft)"/>
+      <ellipse cx="207" cy="112" rx="7" ry="12" fill="#ffffff" opacity="0.08"/>
+    </g>
+
+    <g class="head">
+      <g class="ear-left">
+        <circle cx="94" cy="62" r="30" fill="url(#black-fur)" filter="url(#fur-soft)"/>
+        <circle cx="102" cy="62" r="13" fill="#ffffff" opacity="0.08"/>
+      </g>
+      <g class="ear-right">
+        <circle cx="206" cy="62" r="30" fill="url(#black-fur)" filter="url(#fur-soft)"/>
+        <circle cx="198" cy="62" r="13" fill="#ffffff" opacity="0.08"/>
+      </g>
+
+      <circle cx="150" cy="88" r="64" fill="url(#white-fur)" filter="url(#micro-fluff)"/>
+      <path class="fur-edge" d="M96 82c-8-6-13-13-17-22M105 41c-8-7-17-10-27-10M197 41c8-7 17-10 27-10M204 82c8-6 13-13 17-22M95 116c-11 5-18 11-23 19M205 116c11 5 18 11 23 19" fill="none" stroke="#fffaf0" stroke-width="5" stroke-linecap="round" opacity="0.42"/>
+      <ellipse cx="126" cy="88" rx="22" ry="27" fill="url(#black-fur)" filter="url(#fur-soft)" transform="rotate(22 126 88)"/>
+      <ellipse cx="174" cy="88" rx="22" ry="27" fill="url(#black-fur)" filter="url(#fur-soft)" transform="rotate(-22 174 88)"/>
+      <circle class="eye-dot" cx="131" cy="84" r="5.4" fill="#fffaf0"/>
+      <circle class="eye-dot" cx="169" cy="84" r="5.4" fill="#fffaf0"/>
+      <circle cx="128" cy="82" r="1.4" fill="#0f172a" opacity="0.45"/>
+      <circle cx="166" cy="82" r="1.4" fill="#0f172a" opacity="0.45"/>
+      <ellipse cx="150" cy="106" rx="11.5" ry="8.5" fill="#111827"/>
+      <path class="mouth" d="M138 117c8 8 16 8 24 0" fill="none" stroke="#111827" stroke-width="5.6" stroke-linecap="round"/>
+      <circle class="blush" cx="102" cy="111" r="10.5" fill="#fb7185"/>
+      <circle class="blush" cx="198" cy="111" r="10.5" fill="#fb7185"/>
+      <ellipse cx="127" cy="57" rx="22" ry="8" fill="#ffffff" opacity="0.2" transform="rotate(-10 127 57)"/>
+    </g>
+
+    <path class="leaf" d="M210 117c27-31 54-42 77-32-20 10-36 26-51 48-12-1-21-6-26-16Z" fill="url(#leaf-glow)" opacity="0.86"/>
+    <path d="M211 118c19-17 41-28 67-34" fill="none" stroke="#14532d" stroke-width="4.2" stroke-linecap="round" opacity="0.45"/>
+    <path class="fur-spark" d="M104 157c-8 3-15 8-21 15M196 157c8 3 15 8 21 15M128 190c12 5 28 5 44 0" fill="none" stroke="#fff6e6" stroke-width="4" stroke-linecap="round" opacity="0.34"/>
+  </g>
+</svg>

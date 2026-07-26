@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160" role="img" aria-labelledby="title desc">
+  <title id="title">RB Union Mark</title>
+  <desc id="desc">A tight connected rb monogram for a crew-style Ryanbibi icon.</desc>
+  <rect width="160" height="160" rx="30" fill="#111827"/>
+  <rect x="16" y="16" width="128" height="128" rx="64" fill="#fffaf2"/>
+  <path d="M47 45v70h18V83c0-13 7-21 19-21 13 0 21 10 21 26 0 17-9 28-24 28-9 0-16-4-20-10" fill="none" stroke="#0f172a" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M65 63h23" stroke="#0f172a" stroke-width="14" stroke-linecap="round"/>
+  <path d="M45 126h70" stroke="#14b8a6" stroke-width="8" stroke-linecap="round"/>
+  <circle cx="116" cy="43" r="6" fill="#f43f5e"/>
+  <circle cx="99" cy="43" r="6" fill="#f59e0b"/>
+</svg>

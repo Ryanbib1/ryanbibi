@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160" role="img" aria-labelledby="title desc">
+  <title id="title">RB1 Split Signal</title>
+  <desc id="desc">A sharper uppercase RB1 mark with a signal bar integrated into the B.</desc>
+  <rect width="160" height="160" rx="22" fill="#fffaf2"/>
+  <path d="M23 28h114v104H23z" fill="#0f172a"/>
+  <path d="M42 116V48h34c15 0 25 9 25 22s-10 22-25 22H60" fill="none" stroke="#fff7ea" stroke-width="11" stroke-linecap="square" stroke-linejoin="round"/>
+  <path d="M60 89h21c17 0 28 8 28 23 0 15-11 23-28 23H60" fill="none" stroke="#fff7ea" stroke-width="11" stroke-linecap="square" stroke-linejoin="round"/>
+  <path d="M101 48v87" stroke="#14b8a6" stroke-width="11" stroke-linecap="square"/>
+  <path d="M91 58l10-10 10 10" fill="none" stroke="#14b8a6" stroke-width="8" stroke-linecap="square"/>
+  <path d="M35 38h28" stroke="#f43f5e" stroke-width="6" stroke-linecap="square"/>
+  <path d="M68 38h22" stroke="#f59e0b" stroke-width="6" stroke-linecap="square"/>
+</svg>

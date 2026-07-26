@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160" role="img" aria-labelledby="title desc">
+  <title id="title">RB1 Terminal Tag</title>
+  <desc id="desc">A connected terminal-style rb1 mark with compact digital blocks.</desc>
+  <rect width="160" height="160" rx="18" fill="#0f172a"/>
+  <path d="M22 36h116v88H22z" fill="#fff7ea" opacity=".06"/>
+  <path d="M34 58h30c16 0 25 8 25 21 0 7-3 13-9 16 8 3 12 10 12 19 0 14-11 23-29 23H34V58Z" fill="#fff7ea" opacity=".08"/>
+  <text x="32" y="98" fill="#fff7ea" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="50" font-weight="950" letter-spacing="-8">rb</text>
+  <path d="M88 82h24" stroke="#14b8a6" stroke-width="9" stroke-linecap="square"/>
+  <text x="106" y="99" fill="#14b8a6" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="52" font-weight="950" letter-spacing="-5">1</text>
+  <rect x="34" y="44" width="15" height="6" rx="2" fill="#f43f5e"/>
+  <rect x="55" y="44" width="15" height="6" rx="2" fill="#f59e0b"/>
+  <rect x="76" y="44" width="15" height="6" rx="2" fill="#14b8a6"/>
+</svg>

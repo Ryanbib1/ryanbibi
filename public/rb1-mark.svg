@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 96 96" role="img" aria-labelledby="title desc">
+  <title id="title">RB1 Signal Mark</title>
+  <desc id="desc">A geometric rb1 monogram for the Ryanbibi digital garden.</desc>
+  <rect width="96" height="96" rx="18" fill="#0f172a"/>
+  <rect x="5" y="5" width="86" height="86" rx="14" fill="none" stroke="#fff7ea" stroke-opacity=".14"/>
+  <path d="M16 22h30c10.5 0 18 6.7 18 16.2 0 5.9-2.7 10.1-7.4 12.6 5.6 2.4 8.9 7.1 8.9 13.5C65.5 74.8 57.2 82 45.6 82H16V22Z" fill="#fff7ea" opacity=".06"/>
+  <text x="14" y="58" fill="#fff7ea" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="35" font-weight="900" letter-spacing="-1">rb</text>
+  <text x="65" y="58" fill="#14b8a6" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="36" font-weight="950" letter-spacing="-1">1</text>
+  <rect x="69" y="18" width="8" height="4" rx="2" fill="#f43f5e"/>
+  <rect x="22" y="70" width="18" height="5" rx="2.5" fill="#f43f5e"/>
+  <rect x="44" y="70" width="14" height="5" rx="2.5" fill="#f59e0b"/>
+  <rect x="62" y="70" width="13" height="5" rx="2.5" fill="#14b8a6"/>
+</svg>

@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000" role="img" aria-label="Refined rice paper ink texture">
+  <defs>
+    <filter id="paper-grain" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.72" numOctaves="2" seed="21"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer>
+        <feFuncA type="table" tableValues="0 0.075"/>
+      </feComponentTransfer>
+    </filter>
+    <filter id="soft-bleed" x="-25%" y="-25%" width="150%" height="150%">
+      <feGaussianBlur stdDeviation="26"/>
+    </filter>
+    <linearGradient id="left-wash" x1="0" x2="1" y1="0" y2="1">
+      <stop stop-color="#243129" stop-opacity="0.11"/>
+      <stop offset="0.58" stop-color="#52604f" stop-opacity="0.045"/>
+      <stop offset="1" stop-color="#243129" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="right-wash" x1="1" x2="0" y1="0" y2="1">
+      <stop stop-color="#243129" stop-opacity="0.105"/>
+      <stop offset="0.56" stop-color="#566251" stop-opacity="0.04"/>
+      <stop offset="1" stop-color="#243129" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="thread" x1="0" x2="1" y1="0" y2="0">
+      <stop stop-color="#6f6a5e" stop-opacity="0"/>
+      <stop offset="0.44" stop-color="#6f6a5e" stop-opacity="0.12"/>
+      <stop offset="1" stop-color="#6f6a5e" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1600" height="1000" fill="transparent"/>
+  <rect width="1600" height="1000" filter="url(#paper-grain)" opacity="0.72"/>
+
+  <g filter="url(#soft-bleed)">
+    <ellipse cx="188" cy="255" rx="250" ry="340" fill="url(#left-wash)" transform="rotate(-15 188 255)"/>
+    <ellipse cx="1394" cy="316" rx="260" ry="390" fill="url(#right-wash)" transform="rotate(13 1394 316)"/>
+    <ellipse cx="800" cy="900" rx="520" ry="110" fill="#6a6458" opacity="0.035"/>
+  </g>
+
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M91 108C114 248 105 409 76 616" stroke="#1f2a22" stroke-width="2.3" opacity="0.13"/>
+    <path d="M128 152C154 286 145 454 113 682" stroke="#1f2a22" stroke-width="1.55" opacity="0.095"/>
+    <path d="M113 272c49-32 82-54 123-102" stroke="#1f2a22" stroke-width="1.45" opacity="0.075"/>
+    <path d="M100 394c54-31 101-62 152-124" stroke="#1f2a22" stroke-width="1.25" opacity="0.07"/>
+    <path d="M86 528c42-22 84-55 126-100" stroke="#1f2a22" stroke-width="1.2" opacity="0.07"/>
+
+    <path d="M1495 86c-32 150-34 319-8 523" stroke="#1f2a22" stroke-width="2.05" opacity="0.11"/>
+    <path d="M1452 144c-28 130-23 292 12 491" stroke="#1f2a22" stroke-width="1.45" opacity="0.08"/>
+    <path d="M1478 238c-47-31-83-59-128-112" stroke="#1f2a22" stroke-width="1.25" opacity="0.07"/>
+    <path d="M1484 385c-55-35-95-70-140-128" stroke="#1f2a22" stroke-width="1.15" opacity="0.06"/>
+    <path d="M1491 521c-44-29-82-62-119-111" stroke="#1f2a22" stroke-width="1.1" opacity="0.055"/>
+
+    <path d="M120 823C354 787 552 829 760 801c240-32 448-99 720-46" stroke="url(#thread)" stroke-width="1.2" opacity="0.52"/>
+    <path d="M180 884c206-25 404 18 594-6 250-31 402-83 646-42" stroke="url(#thread)" stroke-width="0.9" opacity="0.38"/>
+    <path d="M284 196c240-28 450 26 666-7 142-21 262-46 420-24" stroke="url(#thread)" stroke-width="0.75" opacity="0.26"/>
+  </g>
+</svg>
