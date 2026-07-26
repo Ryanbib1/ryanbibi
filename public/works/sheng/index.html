@@ -17,7 +17,7 @@ body{ font-family:'Noto Serif SC',serif; color:var(--mist); background:var(--ink
 #enter{ position:fixed; inset:0; z-index:5; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:22px; background:radial-gradient(120% 90% at 50% 35%, rgba(14,22,38,.9), rgba(5,7,14,.95) 72%); transition:opacity 1s ease; }
 #enter.gone{ opacity:0; pointer-events:none; }
 .eglyph-wrap{ position:relative; display:flex; align-items:center; justify-content:center; width:130px; height:130px; }
-.rw{ position:absolute; width:120px; height:120px; border:1px solid rgba(143,208,216,.4); border-radius:50%; opacity:0; animation:rw 5s ease-out infinite; }
+.rw{ position:absolute; width:120px; height:120px; border:1px solid rgba(143,208,216,.4); border-radius:50%; opacity:0; pointer-events:none; animation:rw 5s ease-out infinite; }
 .rw:nth-child(2){ animation-delay:1.66s; } .rw:nth-child(3){ animation-delay:3.33s; }
 @keyframes rw{ 0%{ transform:scale(.45); opacity:.55; } 70%{ opacity:0; } 100%{ transform:scale(3.1); opacity:0; } }
 #eglyph{ position:relative; font-family:'Ma Shan Zheng',cursive; font-size:96px; color:var(--mist); text-shadow:0 0 30px rgba(143,208,216,.4),0 0 70px rgba(185,176,230,.25); animation:breathe 6s ease-in-out infinite; }
@@ -26,6 +26,7 @@ body{ font-family:'Noto Serif SC',serif; color:var(--mist); background:var(--ink
 #esub{ font-size:13px; letter-spacing:.45em; text-indent:.45em; color:var(--soft); font-weight:200; }
 #ebtn{ margin-top:8px; font-family:'Noto Serif SC',serif; font-weight:300; font-size:15px; letter-spacing:.3em; text-indent:.3em; color:var(--ink); background:linear-gradient(180deg,#cfe7ec,#9fc5cf); border:none; border-radius:999px; padding:13px 40px; cursor:pointer; box-shadow:0 0 36px rgba(143,208,216,.4); transition:transform .2s ease, box-shadow .3s ease; }
 #ebtn:hover{ transform:translateY(-2px); box-shadow:0 0 50px rgba(143,208,216,.6); }
+#ebtn:disabled{ cursor:wait; opacity:.72; transform:none; }
 
 /* 头部 */
 .head{ text-align:center; flex-shrink:0; }
@@ -112,6 +113,9 @@ body{ font-family:'Noto Serif SC',serif; color:var(--mist); background:var(--ink
 #focusPick button{ background:rgba(207,224,234,.05); border:1px solid rgba(143,208,216,.22); color:#bcd0dc; border-radius:999px; padding:6px 14px; font-family:'Noto Serif SC',serif; font-size:12px; cursor:pointer; transition:all .2s ease; }
 #focusPick button.on{ background:linear-gradient(180deg, rgba(143,208,216,.22), rgba(185,176,230,.18)); border-color:rgba(143,208,216,.6); color:#f0f7fa; }
 .focus-done #focusTime{ color:var(--cyan); font-size:26px; }
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{ scroll-behavior:auto!important; animation-duration:.001ms!important; animation-iteration-count:1!important; transition-duration:.001ms!important; }
+}
 </style>
 </head>
 <body>
@@ -177,6 +181,7 @@ body{ font-family:'Noto Serif SC',serif; color:var(--mist); background:var(--ink
 
 <script>
 const $=id=>document.getElementById(id);
+const reducedMotion=matchMedia('(prefers-reduced-motion:reduce)').matches;
 /* ============ 声景层定义 ============ */
 const LAYERS=[
   {id:'rain', name:'细雨',   ico:'🌧'},
@@ -394,9 +399,22 @@ eh.textContent=EHINTS[0]; eh.style.opacity=.85; const ehTimer=setInterval(rollHi
 
 $('ebtn').addEventListener('click',()=>{
   clearInterval(ehTimer);
-  if(!started){ initAudio(); buildUI(); if(!applyShareLink() && !loadMix()) applyPreset('雨夜', document.querySelector('#presets button')); }
-  if(AC.state==='suspended') AC.resume();
+  const button=$('ebtn');
+  button.disabled=true;
+  button.textContent='载 入 中';
   $('enter').classList.add('gone');
+  requestAnimationFrame(()=>setTimeout(()=>{
+    try{
+      if(!started){ initAudio(); buildUI(); if(!applyShareLink() && !loadMix()) applyPreset('雨夜', document.querySelector('#presets button')); }
+      if(AC && AC.state==='suspended') AC.resume();
+    }catch(error){
+      console.error('Unable to start the generated soundscape.',error);
+      button.disabled=false;
+      button.textContent='重 试';
+      $('enter').classList.remove('gone');
+      flash('音频启动失败，请检查浏览器权限后重试');
+    }
+  },40));
 });
 
 /* ============ 呼吸引导 ============ */
@@ -474,14 +492,20 @@ let cur={t:[11,16,28],b:[7,10,18],a:[143,208,216]}, curM='orbs', mA=1;
 function lerp(a,bb,f){ for(let i=0;i<3;i++) a[i]+=(bb[i]-a[i])*f; }
 function rgb(a,al){ return `rgba(${a[0]|0},${a[1]|0},${a[2]|0},${al})`; }
 let lastDom='__';
-function loop(t){ const d=dominant(), Sc=sceneOf(d.id), I=d.v, E=d.E;
+let visualRAF=0,lastVisualFrame=0;
+function loop(t){
+  visualRAF=0;
+  if(document.hidden)return;
+  if(reducedMotion && t-lastVisualFrame<50){ visualRAF=requestAnimationFrame(loop); return; }
+  lastVisualFrame=t;
+  const d=dominant(), Sc=sceneOf(d.id), I=d.v, E=d.E;
   if(d.id!==lastDom){ lastDom=d.id; const s=$('scene'); if(s) s.textContent=(d.id&&LMAP[d.id])?('· '+LMAP[d.id].name+' ·'):'· 静 谧 ·'; }
   lerp(cur.t,Sc.t,.025); lerp(cur.b,Sc.b,.025); lerp(cur.a,Sc.a,.025);
   if(Sc.m!==curM){ curM=Sc.m; mA=.1; } mA+=(1-mA)*.03;
   x.globalCompositeOperation='source-over'; x.fillStyle=rgb(cur.b,.18); x.fillRect(0,0,W,H);
   const g=x.createLinearGradient(0,0,0,H); g.addColorStop(0,rgb(cur.t,.5)); g.addColorStop(1,rgb(cur.b,0)); x.fillStyle=g; x.fillRect(0,0,W,H);
   (MOTIF[curM]||MOTIF.orbs)(I,mA,cur.a,t,E);
-  requestAnimationFrame(loop); }
+  visualRAF=requestAnimationFrame(loop); }
 const MOTIF={
   orbs(I,a,acc,t,E){ x.globalCompositeOperation='lighter'; useSprite(acc[0],acc[1],acc[2]); for(const o of orbP){ o.x+=o.vx*(1+E*2); o.y+=o.vy*(1+E*2); if(o.x<-.1)o.x=1.1; if(o.x>1.1)o.x=-.1; if(o.y<-.1)o.y=1.1; if(o.y>1.1)o.y=-.1;
     const p=.5+.5*Math.sin(t*.0005+o.ph), al=(.04+E*.12)*(.4+p*.6)*a, r=o.r*(1+E*.5); dot(o.x*W,o.y*H,r,al); } x.globalCompositeOperation='source-over'; },
@@ -522,7 +546,14 @@ const MOTIF={
     x.strokeStyle='rgba(70,80,96,.45)'; x.lineWidth=7; x.beginPath(); rrp(x,wx,wy,ww,wh,rad); x.stroke();
     x.strokeStyle='rgba(150,165,185,.18)'; x.lineWidth=2; x.beginPath(); rrp(x,wx+6,wy+6,ww-12,wh-12,rad-6); x.stroke(); }
 };
-requestAnimationFrame(loop);
+function resumeVisual(){
+  if(!visualRAF && !document.hidden)visualRAF=requestAnimationFrame(loop);
+}
+document.addEventListener('visibilitychange',()=>{
+  if(document.hidden && visualRAF){ cancelAnimationFrame(visualRAF); visualRAF=0; }
+  else resumeVisual();
+});
+resumeVisual();
 </script>
 </body>
 </html>

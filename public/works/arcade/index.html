@@ -426,8 +426,11 @@ function drawMenuAmbient(now){ const t=reducedMotion?0:now*.00012,horizon=H*.46;
   for(let i=0;i<42;i++){ const x=(i*193.7)%W,y=(i*89.3+now*.006*(1+i%3))%H;ctx.fillStyle=i%5===0?'rgba(255,78,154,.26)':'rgba(84,230,239,.2)';ctx.fillRect(x,y,1.5,1.5); }
   ctx.restore(); }
 
-let last=performance.now();
-function loop(now){ const dt=Math.min(120,now-last); last=now;
+let last=performance.now(),loopRAF=0;
+function loop(now){
+  loopRAF=0;
+  if(document.hidden)return;
+  const dt=Math.min(120,now-last); last=now;
   if(state==='play'){ g.update(dt); if(state==='play'){ scoreEl.textContent='SCORE '+pad6(g.score);
     hiEl.textContent='HI '+pad6(Math.max(getHi(g.id),g.score));
     livesEl.textContent = (g.lives!=null) ? '♥'.repeat(Math.max(0,g.lives)) : ''; } }
@@ -438,7 +441,16 @@ function loop(now){ const dt=Math.min(120,now-last); last=now;
   for(let i=particles.length-1;i>=0;i--){ const p=particles[i]; p.x+=p.vx;p.y+=p.vy;p.vx*=0.92;p.vy*=0.92;p.life-=0.04;
     if(p.life<=0){particles.splice(i,1);continue;} ctx.globalAlpha=p.life; ctx.fillStyle=p.col; ctx.fillRect(p.x-2,p.y-2,4,4); }
   ctx.globalAlpha=1; ctx.restore();
-  requestAnimationFrame(loop); }
+  loopRAF=requestAnimationFrame(loop); }
+function resumeLoop(){
+  if(loopRAF || document.hidden)return;
+  last=performance.now();
+  loopRAF=requestAnimationFrame(loop);
+}
+document.addEventListener('visibilitychange',()=>{
+  if(document.hidden && loopRAF){ cancelAnimationFrame(loopRAF); loopRAF=0; }
+  else resumeLoop();
+});
 
 /* 输入 */
 const KMAP={ArrowLeft:'left',a:'left',A:'left',ArrowRight:'right',d:'right',D:'right',ArrowUp:'up',w:'up',W:'up',ArrowDown:'down',s:'down',S:'down'};
@@ -482,7 +494,7 @@ function toggleMute(){ muted=!muted; muteBtn.textContent=muted?'×':'♪'; muteB
 muteBtn.addEventListener('click', e=>{ e.stopPropagation(); toggleMute(); });
 addEventListener('keydown', e=>{ if(e.key==='m'||e.key==='M') toggleMute(); });
 
-buildTiles(); updateSel(); resize(); requestAnimationFrame(loop);
+buildTiles(); updateSel(); resize(); resumeLoop();
 })();
 </script>
 </body>

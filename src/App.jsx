@@ -391,8 +391,10 @@ function App() {
     }
     const primaryRoute = route.split('/')[0]
     const caseStudy = primaryRoute === 'portfolio' ? findProfessionalCase(route.split('/')[1]) : null
+    const labWork = primaryRoute === 'lab' ? findWork(route.split('/')[1]) : null
     const sectionTitle = routeTitle[primaryRoute]?.[language] || routeTitle.home[language]
-    document.title = `${caseStudy?.company || sectionTitle} | Ziyan Wang / ryanbibi`
+    const detailTitle = labWork ? (language === 'zh' ? labWork.title : labWork.en) : null
+    document.title = `${caseStudy?.company || detailTitle || sectionTitle} | Ziyan Wang / ryanbibi`
   }, [language, route])
 
   useEffect(() => {
@@ -476,7 +478,7 @@ function App() {
               <FoodRoutes key={route} language={language} route={route} />
             </Suspense>
           )}
-          {route === 'lab' && <WorkIndexPage key="lab" />}
+          {route === 'lab' && <WorkIndexPage key="lab" language={language} />}
           {route.startsWith('lab/') && <WorkDetailPage key={route} language={language} route={route} />}
         </AnimatePresence>
       </main>
@@ -1159,7 +1161,7 @@ function HomeGithubShowcase({ language }) {
             <h3 className="mt-7 font-serif text-2xl font-semibold text-ink">
               {isZh ? work.title : work.en}
             </h3>
-            <p className="mt-2 line-clamp-2 text-sm leading-6 text-ink-soft">{work.tagline}</p>
+            <p className="mt-2 line-clamp-2 text-sm leading-6 text-ink-soft">{work.tagline[language]}</p>
           </motion.a>
         ))}
       </div>
@@ -2466,36 +2468,69 @@ function CaseSection({ label, text }) {
   )
 }
 
-function WorkIndexPage() {
+function WorkIndexPage({ language = 'en' }) {
+  const isZh = language === 'zh'
+  const groups = [
+    {
+      key: 'signature',
+      title: isZh ? '标志性实验' : 'Signature experiments',
+      description: isZh
+        ? '以画面、声音与东方叙事为核心的三件浏览器原生作品。'
+        : 'Three browser-native pieces built around motion, sound, and an Eastern visual language.',
+    },
+    {
+      key: 'play',
+      title: isZh ? '产品与游玩' : 'Product and play',
+      description: isZh
+        ? '把产品思考与游戏机制变成可以直接体验的网页作品。'
+        : 'Product thinking and game systems turned into things you can open and use.',
+    },
+  ]
+
   return (
     <PageTransition>
       <PageHeader
         icon={Shapes}
         kicker="/Lab"
-        subtitle="A cabinet of interactive experiments. Each piece has its own visual language, canvas, and reason to exist."
-        title="Interactive Lab"
+        subtitle={
+          isZh
+            ? '这里不是项目仓库，而是一间可以进入的数字展厅。移动、聆听、游玩，再看看每个想法如何成为作品。'
+            : 'Not a project dump, but a gallery you can enter. Move, listen, play, and see how each idea became an experience.'
+        }
+        title={isZh ? '互动实验室' : 'Interactive Lab'}
       />
-      <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {works.map((work) => (
-          <WorkCard key={work.slug} work={work} />
-        ))}
-      </section>
+
+      {groups.map((group) => {
+        const groupWorks = works.filter((work) => work.group === group.key)
+        return (
+          <section key={group.key}>
+            <div className="mb-5 flex flex-col justify-between gap-3 border-b border-line pb-4 dark:border-white/10 sm:flex-row sm:items-end">
+              <div>
+                <p className="font-mono text-[11px] uppercase text-cinnabar">
+                  {String(groupWorks.length).padStart(2, '0')} {isZh ? '件作品' : 'works'}
+                </p>
+                <h2 className="mt-2 font-serif text-3xl font-semibold text-ink">{group.title}</h2>
+              </div>
+              <p className="max-w-xl text-sm leading-6 text-ink-soft">{group.description}</p>
+            </div>
+            <div
+              className={cn(
+                'grid gap-4',
+                group.key === 'signature' ? 'md:grid-cols-3' : 'md:grid-cols-2',
+              )}
+            >
+              {groupWorks.map((work) => (
+                <WorkCard key={work.slug} language={language} work={work} />
+              ))}
+            </div>
+          </section>
+        )
+      })}
     </PageTransition>
   )
 }
 
-function WorkPreview({ work, hovered }) {
-  // Default: an instant accent cover. On hover (desktop only), mount the real
-  // work in a muted, non-interactive iframe so the card previews live motion.
-  const [canHover] = useState(
-    () =>
-      typeof window !== 'undefined' &&
-      window.matchMedia?.('(hover: hover) and (pointer: fine)').matches &&
-      !window.matchMedia?.('(prefers-reduced-motion: reduce)').matches,
-  )
-  const showLive = canHover && hovered && (work.embed || work.poster == null)
-  const [loaded, setLoaded] = useState(false)
-
+function WorkPreview({ language, work }) {
   return (
     <div className="relative aspect-[16/10] w-full overflow-hidden bg-surface-sunk">
       <div
@@ -2510,32 +2545,17 @@ function WorkPreview({ work, hovered }) {
           style={{ color: work.accent }}
           data-no-translate
         >
-          {work.title}
+          {language === 'zh' ? work.title : work.en}
         </span>
       </div>
 
       {work.poster && (
         <img
-          alt={work.title}
-          className="absolute inset-0 size-full object-cover"
+          alt=""
+          className="absolute inset-0 size-full object-cover transition duration-700 ease-out group-hover:scale-[1.025]"
           decoding="async"
           loading="lazy"
           src={work.poster}
-        />
-      )}
-
-      {showLive && work.embed && (
-        <iframe
-          aria-hidden="true"
-          className={cn(
-            'pointer-events-none absolute inset-0 size-full border-0 transition-opacity duration-500',
-            loaded ? 'opacity-100' : 'opacity-0',
-          )}
-          loading="lazy"
-          onLoad={() => setLoaded(true)}
-          src={work.embed}
-          tabIndex={-1}
-          title=""
         />
       )}
 
@@ -2544,42 +2564,70 @@ function WorkPreview({ work, hovered }) {
         className="absolute inset-x-0 top-0 h-1"
         style={{ background: work.accent }}
       />
+      <span className="absolute bottom-3 left-3 rounded-md border border-white/15 bg-black/55 px-2.5 py-1.5 font-mono text-[10px] uppercase text-white/78 backdrop-blur-md">
+        {work.kind[language]}
+      </span>
     </div>
   )
 }
 
-function WorkCard({ work }) {
+function WorkCard({ language, work }) {
   const clickable = work.status !== 'concept'
-  const [hovered, setHovered] = useState(false)
+  const isZh = language === 'zh'
   const statusTone =
     work.status === 'live'
       ? 'text-cinnabar'
       : work.status === 'wip'
         ? 'text-ink-soft'
         : 'text-ink-faint'
+  const primaryTitle = isZh ? work.title : work.en
+  const statusLabel =
+    work.status === 'live'
+      ? isZh
+        ? '可体验'
+        : 'Live'
+      : STATUS_LABEL[work.status]
+  const actionLabel =
+    work.type === 'component'
+      ? isZh
+        ? '查看案例'
+        : 'Read case study'
+      : isZh
+        ? '进入体验'
+        : 'Enter experience'
 
   const body = (
     <>
-      <WorkPreview work={work} hovered={hovered} />
+      <WorkPreview language={language} work={work} />
       <div className="flex flex-1 flex-col p-5">
         <div className="flex items-center justify-between gap-3">
           <span className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-wide">
             <span className="size-2 rounded-full" style={{ background: work.accent }} />
-            <span className={statusTone}>{STATUS_LABEL[work.status]}</span>
+            <span className={statusTone}>{statusLabel}</span>
           </span>
           <span className="font-mono text-[11px] text-ink-faint">{work.year}</span>
         </div>
 
         <div className="mt-3 flex items-baseline gap-2.5">
           <h2 className="font-serif text-2xl font-semibold text-ink" data-no-translate>
-            {work.title}
+            {primaryTitle}
           </h2>
-          <span className="font-mono text-xs uppercase tracking-wide text-ink-faint">{work.en}</span>
+          {isZh && (
+            <span className="font-mono text-xs uppercase tracking-wide text-ink-faint">
+              {work.en}
+            </span>
+          )}
         </div>
-        <p className="mt-2 line-clamp-2 leading-6 text-ink-soft">{work.blurb}</p>
+        <p className="mt-3 font-medium leading-6 text-ink">{work.tagline[language]}</p>
+        <p className="mt-2 line-clamp-3 text-sm leading-6 text-ink-soft">{work.blurb[language]}</p>
+
+        <div className="mt-4 flex gap-2 border-t border-line pt-4 text-xs leading-5 text-ink-faint dark:border-white/10">
+          <Activity className="mt-0.5 size-4 shrink-0 text-cinnabar" />
+          <span>{work.interaction[language]}</span>
+        </div>
 
         <div className="mt-auto flex flex-wrap items-center gap-2 pt-4">
-          {work.tags.slice(0, 3).map((tag) => (
+          {work.tags.slice(0, 2).map((tag) => (
             <span
               className="rounded-md border border-line bg-surface-sunk px-2 py-0.5 text-[11px] text-ink-faint dark:border-white/10 dark:bg-white/[0.05]"
               key={tag}
@@ -2589,7 +2637,7 @@ function WorkCard({ work }) {
           ))}
           {clickable && (
             <span className="ml-auto inline-flex items-center gap-1 text-sm font-semibold text-ink-faint transition group-hover:text-cinnabar">
-              {work.status === 'live' ? 'Open' : 'Preview'}
+              {actionLabel}
               <ArrowUpRight className="size-4" />
             </span>
           )}
@@ -2605,15 +2653,9 @@ function WorkCard({ work }) {
     return <div className={cn(className, 'opacity-80')}>{body}</div>
   }
   return (
-    <motion.a
-      {...cardMotion}
-      className={cn(className, 'ui-card-interactive')}
-      href={`#/lab/${work.slug}`}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-    >
+    <a className={cn(className, 'ui-card-interactive')} href={`#/lab/${work.slug}`}>
       {body}
-    </motion.a>
+    </a>
   )
 }
 
@@ -2633,28 +2675,82 @@ function WorkLoading({ work }) {
   )
 }
 
-function WorkEmbed({ work }) {
+function WorkNavigator({ immersive = false, language = 'en', work }) {
+  const isZh = language === 'zh'
+  const currentIndex = works.findIndex((item) => item.slug === work.slug)
+  const previousWork = works[(currentIndex - 1 + works.length) % works.length]
+  const nextWork = works[(currentIndex + 1) % works.length]
+
+  return (
+    <div className={cn('work-navigator', immersive && 'work-navigator-immersive')}>
+      <a className="work-navigator-back" href="#/lab">
+        <ChevronLeft className="size-4" />
+        {isZh ? '作品展厅' : 'All works'}
+      </a>
+      <div className="work-navigator-identity">
+        <strong data-no-translate>{isZh ? work.title : work.en}</strong>
+        <span>{work.kind[language]}</span>
+      </div>
+      <nav aria-label={isZh ? '作品切换' : 'Project navigation'} className="work-navigator-actions">
+        <span className="work-navigator-count">
+          {String(currentIndex + 1).padStart(2, '0')} / {String(works.length).padStart(2, '0')}
+        </span>
+        <a
+          aria-label={`${isZh ? '上一个作品' : 'Previous work'}: ${isZh ? previousWork.title : previousWork.en}`}
+          className="work-navigator-icon"
+          href={`#/lab/${previousWork.slug}`}
+          title={isZh ? '上一个作品' : 'Previous work'}
+        >
+          <ChevronLeft className="size-4" />
+        </a>
+        <a
+          aria-label={`${isZh ? '下一个作品' : 'Next work'}: ${isZh ? nextWork.title : nextWork.en}`}
+          className="work-navigator-icon"
+          href={`#/lab/${nextWork.slug}`}
+          title={isZh ? '下一个作品' : 'Next work'}
+        >
+          <ChevronRight className="size-4" />
+        </a>
+        {work.embed && (
+          <a
+            aria-label={isZh ? '在新窗口打开作品' : 'Open work in a new window'}
+            className="work-navigator-icon"
+            href={work.embed}
+            rel="noreferrer"
+            target="_blank"
+            title={isZh ? '在新窗口打开' : 'Open in new window'}
+          >
+            <ArrowUpRight className="size-4" />
+          </a>
+        )}
+      </nav>
+    </div>
+  )
+}
+
+function WorkEmbed({ language, work }) {
   const [loaded, setLoaded] = useState(false)
 
   return (
     <div className="work-embed" style={{ '--work-accent': work.accent }}>
-      <a className="work-embed-back" href="#/lab">
-        <ChevronLeft className="size-4" /> Lab
-      </a>
-      {!loaded && (
-        <div className="work-embed-loader">
-          <span className="size-3 animate-ping rounded-full" style={{ background: work.accent }} />
-          <p className="font-mono text-xs uppercase tracking-wide">loading {work.en}…</p>
-        </div>
-      )}
-      <iframe
-        allow="autoplay; fullscreen; microphone; gamepad; xr-spatial-tracking"
-        className="work-embed-frame"
-        loading="lazy"
-        onLoad={() => setLoaded(true)}
-        src={work.embed}
-        title={`${work.title} / ${work.en}`}
-      />
+      <WorkNavigator immersive language={language} work={work} />
+      <div className="work-embed-stage">
+        {!loaded && (
+          <div className="work-embed-loader">
+            <span className="size-3 animate-ping rounded-full" style={{ background: work.accent }} />
+            <p className="font-mono text-xs uppercase tracking-wide">loading {work.en}…</p>
+          </div>
+        )}
+        <iframe
+          allow="autoplay; fullscreen; microphone; gamepad; xr-spatial-tracking"
+          allowFullScreen
+          className="work-embed-frame"
+          loading="eager"
+          onLoad={() => setLoaded(true)}
+          src={work.embed}
+          title={`${work.title} / ${work.en}`}
+        />
+      </div>
     </div>
   )
 }
@@ -2663,19 +2759,22 @@ function WorkDetailPage({ language, route }) {
   const slug = route.split('/')[1]
   const work = findWork(slug)
 
-  if (!work) return <WorkIndexPage />
+  if (!work) return <WorkIndexPage language={language} />
 
   // Ready works render by `type`: a React component, or a fully isolated iframe.
   if (work.status === 'live') {
     if (work.type === 'embed' && work.embed) {
-      return <WorkEmbed work={work} />
+      return <WorkEmbed language={language} work={work} />
     }
     const LiveExperience = WORK_COMPONENTS[slug]
     if (LiveExperience) {
       return (
-        <Suspense fallback={<WorkLoading work={work} />}>
-          <LiveExperience language={language} />
-        </Suspense>
+        <div className="grid gap-3">
+          <WorkNavigator language={language} work={work} />
+          <Suspense fallback={<WorkLoading work={work} />}>
+            <LiveExperience language={language} />
+          </Suspense>
+        </div>
       )
     }
   }

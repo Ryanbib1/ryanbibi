@@ -2076,11 +2076,20 @@ button {
   position: relative;
   width: 100%;
   height: calc(100vh - 130px);
+  height: calc(100dvh - 130px);
   min-height: 460px;
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
   border-radius: 16px;
   background: #0a0c14;
   isolation: isolate;
+}
+
+.work-embed-stage {
+  position: relative;
+  min-height: 0;
+  flex: 1;
 }
 
 .work-embed-frame {
@@ -2090,29 +2099,149 @@ button {
   display: block;
 }
 
-.work-embed-back {
-  position: absolute;
-  top: 16px;
-  left: 16px;
-  z-index: 3;
-  display: inline-flex;
+.work-navigator {
+  display: grid;
+  min-height: 58px;
+  grid-template-columns: minmax(130px, auto) minmax(0, 1fr) auto;
   align-items: center;
-  gap: 4px;
-  padding: 8px 14px 8px 10px;
-  border: 1px solid color-mix(in srgb, var(--work-accent, #fff) 45%, transparent);
-  border-radius: 999px;
-  background: rgba(10, 12, 20, 0.55);
-  font-size: 13px;
-  font-weight: 600;
-  color: #f5f7ff;
-  text-decoration: none;
-  backdrop-filter: blur(8px);
-  transition: background 0.2s, border-color 0.2s;
+  gap: 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--surface) 94%, transparent);
+  padding: 7px 9px;
+  box-shadow: 0 12px 30px rgba(91, 64, 35, 0.07);
 }
 
-.work-embed-back:hover {
-  background: rgba(20, 24, 40, 0.8);
-  border-color: var(--work-accent, #fff);
+.dark .work-navigator {
+  border-color: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.045);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+}
+
+.work-navigator-immersive {
+  position: relative;
+  z-index: 3;
+  flex: 0 0 auto;
+  border: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0;
+  background: #0d1019;
+  box-shadow: none;
+  color: #f5f7ff;
+}
+
+.work-navigator-immersive::before {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 2px;
+  background: var(--work-accent, #fff);
+  content: "";
+}
+
+.work-navigator-back {
+  display: inline-flex;
+  min-height: 40px;
+  align-items: center;
+  gap: 4px;
+  justify-self: start;
+  padding: 0 10px 0 7px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-soft);
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+}
+
+.work-navigator-back:hover {
+  background: var(--surface-sunk);
+  color: var(--ink);
+}
+
+.work-navigator-immersive .work-navigator-back {
+  color: rgba(245, 247, 255, 0.68);
+}
+
+.work-navigator-immersive .work-navigator-back:hover {
+  background: rgba(255, 255, 255, 0.07);
+  color: #fff;
+}
+
+.work-navigator-identity {
+  min-width: 0;
+  text-align: center;
+}
+
+.work-navigator-identity strong {
+  display: block;
+  overflow: hidden;
+  color: var(--ink);
+  font-family: var(--font-serif);
+  font-size: 15px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.work-navigator-identity span {
+  display: block;
+  margin-top: 2px;
+  color: var(--ink-faint);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  text-transform: uppercase;
+}
+
+.work-navigator-immersive .work-navigator-identity strong {
+  color: #f5f7ff;
+}
+
+.work-navigator-immersive .work-navigator-identity span {
+  color: rgba(245, 247, 255, 0.42);
+}
+
+.work-navigator-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.work-navigator-count {
+  margin-right: 5px;
+  color: var(--ink-faint);
+  font-family: var(--font-mono);
+  font-size: 10px;
+}
+
+.work-navigator-immersive .work-navigator-count {
+  color: rgba(245, 247, 255, 0.42);
+}
+
+.work-navigator-icon {
+  display: grid;
+  width: 40px;
+  height: 40px;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  color: var(--ink-soft);
+  transition: border-color 0.2s, background 0.2s, color 0.2s;
+}
+
+.work-navigator-icon:hover {
+  border-color: var(--line-strong);
+  background: var(--surface-sunk);
+  color: var(--cinnabar);
+}
+
+.work-navigator-immersive .work-navigator-icon {
+  border-color: rgba(255, 255, 255, 0.11);
+  color: rgba(245, 247, 255, 0.64);
+}
+
+.work-navigator-immersive .work-navigator-icon:hover {
+  border-color: color-mix(in srgb, var(--work-accent, #fff) 55%, transparent);
+  background: rgba(255, 255, 255, 0.07);
+  color: #fff;
 }
 
 .work-embed-loader {
@@ -2124,4 +2253,43 @@ button {
   justify-items: center;
   gap: 14px;
   color: rgba(245, 247, 255, 0.7);
+}
+
+@media (max-width: 640px) {
+  .work-embed {
+    height: calc(100vh - 116px);
+    height: calc(100dvh - 116px);
+    min-height: 520px;
+    border-radius: 12px;
+  }
+
+  .work-navigator {
+    min-height: 64px;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: 6px;
+    padding: 8px;
+  }
+
+  .work-navigator-back,
+  .work-navigator-icon {
+    min-height: 44px;
+  }
+
+  .work-navigator-icon {
+    width: 44px;
+    height: 44px;
+  }
+
+  .work-navigator-identity span,
+  .work-navigator-count {
+    display: none;
+  }
+
+  .work-navigator-actions {
+    gap: 3px;
+  }
+
+  .work-navigator-actions .work-navigator-icon:first-of-type {
+    display: none;
+  }
 }

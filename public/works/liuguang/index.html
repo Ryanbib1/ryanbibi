@@ -139,6 +139,7 @@ body.ui-light{ --fg:28,24,18; }
 'use strict';
 const cv = document.getElementById('stage');
 const ctx = cv.getContext('2d');
+const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 let W=0, H=0, dpr=1, T=0;
 
 /* ---------- 共享 Perlin 噪声 ---------- */
@@ -539,9 +540,25 @@ addEventListener('keydown',e=>{ if(e.target.id==='wordInput'||e.target.id==='ink
   else if(e.key==='ArrowRight'||e.key==='ArrowDown')go(cur+1);
   else if(e.key==='ArrowLeft'||e.key==='ArrowUp')go(cur-1); });
 
-function loop(){ T++; SCENES[cur].frame(); requestAnimationFrame(loop); }
+let loopRAF=0,lastLoopFrame=0;
+function loop(now){
+  loopRAF=0;
+  if(document.hidden)return;
+  if(reducedMotion && now-lastLoopFrame<50){ loopRAF=requestAnimationFrame(loop); return; }
+  lastLoopFrame=now;
+  T++;
+  SCENES[cur].frame();
+  loopRAF=requestAnimationFrame(loop);
+}
+function resumeLoop(){
+  if(!loopRAF && !document.hidden)loopRAF=requestAnimationFrame(loop);
+}
+document.addEventListener('visibilitychange',()=>{
+  if(document.hidden && loopRAF){ cancelAnimationFrame(loopRAF); loopRAF=0; }
+  else resumeLoop();
+});
 
-resize(); go(0); requestAnimationFrame(loop);
+resize(); go(0); resumeLoop();
 })();
 </script>
 </body>

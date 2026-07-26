@@ -444,6 +444,7 @@ select.bazi-in{ flex:1; min-width:84px; cursor:pointer; -webkit-appearance:none;
 (() => {
 'use strict';
 const $=id=>document.getElementById(id);
+const reducedMotion=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const GAN="甲乙丙丁戊己庚辛壬癸", ZHI="子丑寅卯辰巳午未申酉戌亥";
 const ZODIAC=["鼠","牛","虎","兔","龙","蛇","马","羊","猴","鸡","狗","猪"];
 const GAN_WX={甲:'木',乙:'木',丙:'火',丁:'火',戊:'土',己:'土',庚:'金',辛:'金',壬:'水',癸:'水'};
@@ -834,15 +835,23 @@ function initTilt(el, maxDeg){ if(!el||el._tilt)return; el._tilt=1; maxDeg=maxDe
   el.addEventListener('pointerleave',()=>{ el.style.transition=''; el.style.transform=''; glare.style.opacity=0; }); }
 initTilt($('card'));
 
-const cv=$('bg'), ctx=cv.getContext('2d'); let W,H,dpr,ps=[];
+const cv=$('bg'), ctx=cv.getContext('2d'); let W,H,dpr,ps=[],bgRAF=0,lastBgFrame=0;
 function spawn(){ return { x:Math.random()*W, y:H+Math.random()*H, vy:-(0.2+Math.random()*0.6), r:0.6+Math.random()*1.8, tw:Math.random()*7, hue:Math.random()<0.5?42:10 }; }
 function resize(){ dpr=Math.min(devicePixelRatio||1,2); W=innerWidth;H=innerHeight; cv.width=W*dpr;cv.height=H*dpr; cv.style.width=W+'px';cv.style.height=H+'px'; ctx.setTransform(dpr,0,0,dpr,0,0); ps=Array.from({length:Math.min(70,(W*H/20000)|0)},spawn); }
 addEventListener('resize',resize);
-function loop(){ ctx.clearRect(0,0,W,H); ctx.globalCompositeOperation='lighter';
+function loop(now){
+  bgRAF=0;
+  if(document.hidden)return;
+  if(reducedMotion && now-lastBgFrame<50){ bgRAF=requestAnimationFrame(loop); return; }
+  lastBgFrame=now;
+  ctx.clearRect(0,0,W,H); ctx.globalCompositeOperation='lighter';
   for(const p of ps){ p.y+=p.vy; p.tw+=0.04; p.x+=Math.sin(p.tw*0.5)*0.2; if(p.y<-10){ Object.assign(p,spawn()); p.y=H+10; }
     const a=(0.3+0.5*Math.sin(p.tw))*Math.min(1,(H-p.y)/H+0.2), g=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*5);
     g.addColorStop(0,`hsla(${p.hue},80%,72%,${a*0.7})`); g.addColorStop(1,`hsla(${p.hue},80%,72%,0)`); ctx.fillStyle=g; ctx.beginPath();ctx.arc(p.x,p.y,p.r*5,0,7);ctx.fill(); }
-  ctx.globalCompositeOperation='source-over'; requestAnimationFrame(loop); }
+  ctx.globalCompositeOperation='source-over'; bgRAF=requestAnimationFrame(loop); }
+function resumeBackground(){
+  if(!bgRAF && !document.hidden)bgRAF=requestAnimationFrame(loop);
+}
 /* ========= 卜卦 · 周易（摇卦成卦 + 变卦，按「问题+日期」确定性） ========= */
 (function initGua(){
   const TRI={乾:'111',兑:'110',离:'101',震:'100',巽:'011',坎:'010',艮:'001',坤:'000'};
@@ -986,9 +995,29 @@ function loop(){ ctx.clearRect(0,0,W,H); ctx.globalCompositeOperation='lighter';
   const pk=document.createElement('div'); pk.id='nebpick'; PAL.forEach((p,i)=>{ const b=document.createElement('b'); b.title=p.n; b.style.background=p.s; b.addEventListener('click',()=>applyPal(i)); pk.appendChild(b); }); document.body.appendChild(pk); applyPal(pidx);
   function rz(){ const sc=.6; c.width=Math.max(2,innerWidth*sc|0); c.height=Math.max(2,innerHeight*sc|0); c.style.width=innerWidth+'px'; c.style.height=innerHeight+'px'; gl.viewport(0,0,c.width,c.height); }
   rz(); addEventListener('resize',rz);
-  const t0=performance.now(); (function draw(){ gl.uniform2f(uRes,c.width,c.height); gl.uniform1f(uT,(performance.now()-t0)/1000); gl.drawArrays(gl.TRIANGLES,0,3); requestAnimationFrame(draw); })();
+  const t0=performance.now(); let nebRAF=0,lastNebFrame=0;
+  function draw(now){
+    nebRAF=0;
+    if(document.hidden)return;
+    if(reducedMotion && now-lastNebFrame<50){ nebRAF=requestAnimationFrame(draw); return; }
+    lastNebFrame=now;
+    gl.uniform2f(uRes,c.width,c.height);
+    gl.uniform1f(uT,(now-t0)/1000);
+    gl.drawArrays(gl.TRIANGLES,0,3);
+    nebRAF=requestAnimationFrame(draw);
+  }
+  function resumeNebula(){ if(!nebRAF && !document.hidden)nebRAF=requestAnimationFrame(draw); }
+  document.addEventListener('visibilitychange',()=>{
+    if(document.hidden && nebRAF){ cancelAnimationFrame(nebRAF); nebRAF=0; }
+    else resumeNebula();
+  });
+  resumeNebula();
 })();
-resize(); requestAnimationFrame(loop);
+document.addEventListener('visibilitychange',()=>{
+  if(document.hidden && bgRAF){ cancelAnimationFrame(bgRAF); bgRAF=0; }
+  else resumeBackground();
+});
+resize(); resumeBackground();
 })();
 </script>
 <!-- Vercel Analytics：仅在 Vercel 部署时生效，本地 file:// 会 404 但无害 -->

@@ -3,7 +3,6 @@ import {
   CheckCircle2,
   Clock3,
   Database,
-  ExternalLink,
   Heart,
   LayoutDashboard,
   Link2,
@@ -26,8 +25,7 @@ const copy = {
       'A small invitation product for a very human question: do you want to play together tonight?',
     note:
       'The final experience is intentionally smaller than the planning problem. One question keeps the emotional center clear; the backend keeps the answer from disappearing in chat.',
-    openPrototype: 'Open local prototype',
-    localOnly: 'The interactive prototype is running locally on port 5174.',
+    publicStatus: 'Case study is live; the API demo remains private.',
     flowLabel: 'The flow',
     flowTitle: 'From a vague plan to one clear answer.',
     flowIntro:
@@ -95,8 +93,7 @@ const copy = {
     intro: '一个为非常真实的问题做的小邀请产品：今晚要不要一起玩？',
     note:
       '最终体验刻意比原本的计划更小。一个问题保留了情绪中心；后台则让回答不会消失在聊天记录里。',
-    openPrototype: '打开本地原型',
-    localOnly: '交互原型当前运行在本地 5174 端口。',
+    publicStatus: '案例已公开，API 演示暂时保留为私有环境。',
     flowLabel: '交互流程',
     flowTitle: '从模糊的计划，到一个明确的回答。',
     flowIntro:
@@ -161,9 +158,6 @@ const copy = {
 
 export default function GameNight({ language = 'en' }) {
   const t = copy[language === 'zh' ? 'zh' : 'en']
-  const localPrototype =
-    typeof window !== 'undefined' &&
-    ['localhost', '127.0.0.1'].includes(window.location.hostname)
 
   return (
     <div className="relative overflow-hidden rounded-2xl border border-[#f3c2d5] bg-[#fff8fb] text-[#3d2534] shadow-[0_24px_80px_rgba(137,69,104,0.18)]">
@@ -189,21 +183,10 @@ export default function GameNight({ language = 'en' }) {
             </p>
             <p className="mt-5 max-w-xl leading-7 text-[#835f71]">{t.note}</p>
 
-            <div className="mt-7 flex flex-wrap items-center gap-3">
-              {localPrototype ? (
-                <a
-                  className="inline-flex items-center gap-2 rounded-full bg-[#e9689b] px-5 py-3 text-sm font-semibold text-white shadow-[0_10px_24px_rgba(222,87,139,0.3)] transition hover:-translate-y-0.5 hover:bg-[#d84f87]"
-                  href="http://127.0.0.1:5174/"
-                  rel="noreferrer"
-                  target="_blank"
-                >
-                  <ExternalLink className="size-4" />
-                  {t.openPrototype}
-                </a>
-              ) : null}
-              <span className="inline-flex items-center gap-2 text-xs font-medium text-[#9a7185]">
+            <div className="mt-7">
+              <span className="inline-flex min-h-11 items-center gap-2 rounded-full border border-[#f3c2d5] bg-white/70 px-4 text-xs font-medium text-[#9a7185]">
                 <Clock3 className="size-4" />
-                {localPrototype ? t.localOnly : t.proofLabel}
+                {t.publicStatus}
               </span>
             </div>
           </div>
