@@ -1077,6 +1077,7 @@ function CityRestaurantMap({ language, onAreaSelect, places, region, selectedAre
 
     let disposed = false
     let map
+    let invalidateFrame = 0
 
     import('leaflet')
       .then((module) => {
@@ -1087,6 +1088,9 @@ function CityRestaurantMap({ language, onAreaSelect, places, region, selectedAre
           doubleClickZoom: true,
           scrollWheelZoom: true,
           touchZoom: true,
+          zoomAnimation: false,
+          fadeAnimation: false,
+          markerZoomAnimation: false,
           zoomControl: false,
         }).setView(config.center, 10)
 
@@ -1124,10 +1128,16 @@ function CityRestaurantMap({ language, onAreaSelect, places, region, selectedAre
         const bounds = L.featureGroup(markerGroup).getBounds()
         mapBoundsRef.current = bounds
         if (bounds.isValid()) {
-          map.fitBounds(bounds, { maxZoom: config.maxZoom, padding: [38, 38] })
+          map.fitBounds(bounds, {
+            animate: false,
+            maxZoom: config.maxZoom,
+            padding: [38, 38],
+          })
         }
         mapInstanceRef.current = map
-        window.requestAnimationFrame(() => map?.invalidateSize())
+        invalidateFrame = window.requestAnimationFrame(() => {
+          if (!disposed && mapElementRef.current) map?.invalidateSize({ animate: false })
+        })
         setMapStatus('ready')
       })
       .catch(() => {
@@ -1136,10 +1146,16 @@ function CityRestaurantMap({ language, onAreaSelect, places, region, selectedAre
 
     return () => {
       disposed = true
+      if (invalidateFrame) window.cancelAnimationFrame(invalidateFrame)
       markerRefs.current.clear()
       mapInstanceRef.current = null
       mapBoundsRef.current = null
-      map?.remove()
+      if (map) {
+        map.stop()
+        map.off()
+        map.remove()
+        map = undefined
+      }
     }
   }, [config, isZh, onAreaSelect, points])
 
@@ -1155,7 +1171,9 @@ function CityRestaurantMap({ language, onAreaSelect, places, region, selectedAre
 
   const resetMap = () => {
     if (mapInstanceRef.current && mapBoundsRef.current?.isValid()) {
+      mapInstanceRef.current.stop()
       mapInstanceRef.current.fitBounds(mapBoundsRef.current, {
+        animate: false,
         maxZoom: config.maxZoom,
         padding: [38, 38],
       })
