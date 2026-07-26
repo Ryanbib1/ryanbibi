@@ -61,7 +61,14 @@ function EntryReveal({ enableThree = true, onDismiss, show }) {
           </button>
           <div className="entry-reveal-core">
             <div className="entry-reveal-mark">
-              <img src="./rb-flow-pure-animated.svg" alt="" />
+              <img
+                alt=""
+                decoding="sync"
+                fetchPriority="high"
+                height="160"
+                src="./rb-flow-pure-animated.svg"
+                width="160"
+              />
             </div>
             <p className="entry-reveal-kicker">ryanbibi digital garden</p>
             <h1 className="entry-reveal-title">Ziyan Wang / ryanbibi</h1>
@@ -105,202 +112,234 @@ function EntryPortalScene({ enabled, entering }) {
     let active = true
     let cleanup = () => {}
 
-    import('../lib/threeSceneKit').then((THREE) => {
-      if (!active || !mountRef.current) return
+    let sceneStarted = false
+    const startScene = () => {
+      if (sceneStarted || !active) return
+      sceneStarted = true
+      removeStartListeners()
 
-      const mount = mountRef.current
-      const scene = new THREE.Scene()
-      const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 80)
-      camera.position.set(0, 0, 8.6)
+      import('../lib/threeSceneKit')
+        .then((THREE) => {
+          if (!active || !mountRef.current) return
 
-      const renderer = new THREE.WebGLRenderer({
-        alpha: true,
-        antialias: true,
-        powerPreference: 'low-power',
-      })
-      renderer.setClearColor(0x000000, 0)
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.35))
-      mount.appendChild(renderer.domElement)
+          const mount = mountRef.current
+          const scene = new THREE.Scene()
+          const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 80)
+          camera.position.set(0, 0, 8.6)
 
-      const portal = new THREE.Group()
-      scene.add(portal)
+          const renderer = new THREE.WebGLRenderer({
+            alpha: true,
+            antialias: false,
+            powerPreference: 'low-power',
+          })
+          renderer.setClearColor(0x000000, 0)
+          renderer.setPixelRatio(1)
+          mount.appendChild(renderer.domElement)
 
-      const pointer = new THREE.Vector2(0, 0)
-      const target = new THREE.Vector2(0, 0)
-      const start = performance.now()
-      let entryEase = 0
+          const portal = new THREE.Group()
+          scene.add(portal)
 
-      const ringMaterials = [
-        new THREE.MeshBasicMaterial({
-          color: 0xf7efe2,
-          opacity: 0.2,
-          transparent: true,
-          depthWrite: false,
-        }),
-        new THREE.MeshBasicMaterial({
-          color: 0xc1432e,
-          opacity: 0.36,
-          transparent: true,
-          depthWrite: false,
-        }),
-        new THREE.MeshBasicMaterial({
-          color: 0x22c7bb,
-          opacity: 0.22,
-          transparent: true,
-          depthWrite: false,
-        }),
-      ]
+          const pointer = new THREE.Vector2(0, 0)
+          const target = new THREE.Vector2(0, 0)
+          const start = performance.now()
+          let entryEase = 0
 
-      const rings = Array.from({ length: 11 }, (_, index) => {
-        const geometry = new THREE.TorusGeometry(1.08 + index * 0.18, 0.006, 8, 168)
-        const material = ringMaterials[index % ringMaterials.length]
-        const mesh = new THREE.Mesh(geometry, material)
-        mesh.position.z = -index * 0.62
-        mesh.rotation.x = Math.PI / 2.55
-        mesh.rotation.z = index * 0.27
-        mesh.userData.baseScale = 1 + index * 0.035
-        portal.add(mesh)
-        return mesh
-      })
+          const ringMaterials = [
+            new THREE.MeshBasicMaterial({
+              color: 0xf7efe2,
+              opacity: 0.2,
+              transparent: true,
+              depthWrite: false,
+            }),
+            new THREE.MeshBasicMaterial({
+              color: 0xc1432e,
+              opacity: 0.36,
+              transparent: true,
+              depthWrite: false,
+            }),
+            new THREE.MeshBasicMaterial({
+              color: 0x22c7bb,
+              opacity: 0.22,
+              transparent: true,
+              depthWrite: false,
+            }),
+          ]
 
-      const ribbonMaterial = new THREE.LineBasicMaterial({
-        color: 0xf7efe2,
-        opacity: 0.18,
-        transparent: true,
-      })
-      const accentRibbonMaterial = new THREE.LineBasicMaterial({
-        color: 0xc1432e,
-        opacity: 0.42,
-        transparent: true,
-      })
-
-      const makeSpiral = (radius, twist, material, phase = 0) => {
-        const points = []
-        for (let i = 0; i < 260; i += 1) {
-          const t = i / 259
-          const angle = t * Math.PI * 2 * twist + phase
-          points.push(
-            new THREE.Vector3(
-              Math.cos(angle) * radius * (1 + t * 0.52),
-              Math.sin(angle) * radius * 0.38,
-              -t * 6.8,
-            ),
-          )
-        }
-        const geometry = new THREE.BufferGeometry().setFromPoints(points)
-        const line = new THREE.Line(geometry, material)
-        line.rotation.x = 0.15
-        portal.add(line)
-        return { geometry, line }
-      }
-
-      const spirals = [
-        makeSpiral(0.92, 2.1, ribbonMaterial, 0.2),
-        makeSpiral(1.16, 1.56, accentRibbonMaterial, 1.8),
-      ]
-
-      const particleCount = 240
-      const particleGeometry = new THREE.BufferGeometry()
-      const particlePositions = new Float32Array(particleCount * 3)
-      for (let i = 0; i < particleCount; i += 1) {
-        const angle = Math.random() * Math.PI * 2
-        const radius = 0.35 + Math.random() * 4.4
-        particlePositions[i * 3] = Math.cos(angle) * radius
-        particlePositions[i * 3 + 1] = Math.sin(angle) * radius * 0.58
-        particlePositions[i * 3 + 2] = -Math.random() * 7.2
-      }
-      particleGeometry.setAttribute('position', new THREE.BufferAttribute(particlePositions, 3))
-      const particleMaterial = new THREE.PointsMaterial({
-        color: 0xf7efe2,
-        opacity: 0.38,
-        size: 0.024,
-        transparent: true,
-        depthWrite: false,
-      })
-      const particles = new THREE.Points(particleGeometry, particleMaterial)
-      portal.add(particles)
-
-      const resize = () => {
-        const rect = mount.getBoundingClientRect()
-        const width = Math.max(1, Math.round(rect.width))
-        const height = Math.max(1, Math.round(rect.height))
-        renderer.setSize(width, height, false)
-        camera.aspect = width / height
-        camera.updateProjectionMatrix()
-      }
-
-      const onPointerMove = (event) => {
-        const rect = mount.getBoundingClientRect()
-        if (!rect.width || !rect.height) return
-        target.x = ((event.clientX - rect.left) / rect.width - 0.5) * 2
-        target.y = ((event.clientY - rect.top) / rect.height - 0.5) * -2
-      }
-
-      resize()
-      const resizeObserver = new ResizeObserver(resize)
-      resizeObserver.observe(mount)
-      window.addEventListener('pointermove', onPointerMove, { passive: true })
-
-      let raf = 0
-      const render = () => {
-        if (!active) return
-
-        if (!document.hidden) {
-          const elapsed = (performance.now() - start) / 1000
-          entryEase += ((enteringRef.current ? 1 : 0) - entryEase) * 0.08
-          pointer.lerp(target, 0.04)
-
-          portal.rotation.y = pointer.x * 0.12 + elapsed * 0.045
-          portal.rotation.x = pointer.y * 0.06
-          portal.position.z = entryEase * 4.2
-          portal.scale.setScalar(1 + entryEase * 1.15)
-          camera.position.z = 8.6 - entryEase * 4.4
-          camera.fov = 42 + entryEase * 16
-          camera.updateProjectionMatrix()
-
-          rings.forEach((ring, index) => {
-            ring.rotation.z += 0.0025 + index * 0.00028 + entryEase * 0.018
-            const pulse = 1 + Math.sin(elapsed * 1.35 + index * 0.55) * 0.018
-            const rush = enteringRef.current ? 1 + entryEase * (index + 1) * 0.03 : 1
-            ring.scale.setScalar(ring.userData.baseScale * pulse * rush)
-            ring.material.opacity = Math.max(0.05, (index % 3 === 1 ? 0.34 : 0.18) + entryEase * 0.22)
+          const rings = Array.from({ length: 9 }, (_, index) => {
+            const geometry = new THREE.TorusGeometry(1.08 + index * 0.2, 0.006, 6, 96)
+            const material = ringMaterials[index % ringMaterials.length]
+            const mesh = new THREE.Mesh(geometry, material)
+            mesh.position.z = -index * 0.62
+            mesh.rotation.x = Math.PI / 2.55
+            mesh.rotation.z = index * 0.27
+            mesh.userData.baseScale = 1 + index * 0.035
+            portal.add(mesh)
+            return mesh
           })
 
-          particles.rotation.z = elapsed * 0.018
-          particles.position.z = entryEase * 2.6
-          particleMaterial.opacity = 0.34 + entryEase * 0.28
-
-          spirals.forEach(({ line }, index) => {
-            line.rotation.z = elapsed * (0.06 + index * 0.026) + entryEase * 0.8
-            line.position.z = entryEase * 1.9
+          const ribbonMaterial = new THREE.LineBasicMaterial({
+            color: 0xf7efe2,
+            opacity: 0.18,
+            transparent: true,
+          })
+          const accentRibbonMaterial = new THREE.LineBasicMaterial({
+            color: 0xc1432e,
+            opacity: 0.42,
+            transparent: true,
           })
 
-          renderer.render(scene, camera)
-        }
+          const makeSpiral = (radius, twist, material, phase = 0) => {
+            const points = []
+            for (let i = 0; i < 260; i += 1) {
+              const t = i / 259
+              const angle = t * Math.PI * 2 * twist + phase
+              points.push(
+                new THREE.Vector3(
+                  Math.cos(angle) * radius * (1 + t * 0.52),
+                  Math.sin(angle) * radius * 0.38,
+                  -t * 6.8,
+                ),
+              )
+            }
+            const geometry = new THREE.BufferGeometry().setFromPoints(points)
+            const line = new THREE.Line(geometry, material)
+            line.rotation.x = 0.15
+            portal.add(line)
+            return { geometry, line }
+          }
 
-        raf = requestAnimationFrame(render)
-      }
-      render()
+          const spirals = [
+            makeSpiral(0.92, 2.1, ribbonMaterial, 0.2),
+            makeSpiral(1.16, 1.56, accentRibbonMaterial, 1.8),
+          ]
 
-      cleanup = () => {
-        active = false
-        cancelAnimationFrame(raf)
-        resizeObserver.disconnect()
-        window.removeEventListener('pointermove', onPointerMove)
-        rings.forEach((ring) => ring.geometry.dispose())
-        ringMaterials.forEach((material) => material.dispose())
-        spirals.forEach(({ geometry }) => geometry.dispose())
-        ribbonMaterial.dispose()
-        accentRibbonMaterial.dispose()
-        particleGeometry.dispose()
-        particleMaterial.dispose()
-        renderer.dispose()
-        renderer.domElement.remove()
-      }
-    })
+          const particleCount = 180
+          const particleGeometry = new THREE.BufferGeometry()
+          const particlePositions = new Float32Array(particleCount * 3)
+          for (let i = 0; i < particleCount; i += 1) {
+            const angle = Math.random() * Math.PI * 2
+            const radius = 0.35 + Math.random() * 4.4
+            particlePositions[i * 3] = Math.cos(angle) * radius
+            particlePositions[i * 3 + 1] = Math.sin(angle) * radius * 0.58
+            particlePositions[i * 3 + 2] = -Math.random() * 7.2
+          }
+          particleGeometry.setAttribute('position', new THREE.BufferAttribute(particlePositions, 3))
+          const particleMaterial = new THREE.PointsMaterial({
+            color: 0xf7efe2,
+            opacity: 0.38,
+            size: 0.024,
+            transparent: true,
+            depthWrite: false,
+          })
+          const particles = new THREE.Points(particleGeometry, particleMaterial)
+          portal.add(particles)
+
+          const resize = () => {
+            const rect = mount.getBoundingClientRect()
+            const width = Math.max(1, Math.round(rect.width))
+            const height = Math.max(1, Math.round(rect.height))
+            const renderScale = 0.58
+            renderer.setSize(
+              Math.max(1, Math.round(width * renderScale)),
+              Math.max(1, Math.round(height * renderScale)),
+              false,
+            )
+            camera.aspect = width / height
+            camera.updateProjectionMatrix()
+          }
+
+          const onPointerMove = (event) => {
+            const rect = mount.getBoundingClientRect()
+            if (!rect.width || !rect.height) return
+            target.x = ((event.clientX - rect.left) / rect.width - 0.5) * 2
+            target.y = ((event.clientY - rect.top) / rect.height - 0.5) * -2
+          }
+
+          resize()
+          const resizeObserver = new ResizeObserver(resize)
+          resizeObserver.observe(mount)
+          window.addEventListener('pointermove', onPointerMove, { passive: true })
+
+          let raf = 0
+          let lastFrame = 0
+          const render = (time) => {
+            if (!active) return
+
+            const frameInterval = enteringRef.current ? 1000 / 40 : 1000 / 24
+            if (!document.hidden && time - lastFrame >= frameInterval) {
+              lastFrame = time
+              const elapsed = (time - start) / 1000
+              entryEase += ((enteringRef.current ? 1 : 0) - entryEase) * 0.08
+              pointer.lerp(target, 0.04)
+
+              portal.rotation.y = pointer.x * 0.12 + elapsed * 0.045
+              portal.rotation.x = pointer.y * 0.06
+              portal.position.z = entryEase * 4.2
+              portal.scale.setScalar(1 + entryEase * 1.15)
+              camera.position.z = 8.6 - entryEase * 4.4
+              camera.fov = 42 + entryEase * 16
+              camera.updateProjectionMatrix()
+
+              rings.forEach((ring, index) => {
+                ring.rotation.z += 0.0025 + index * 0.00028 + entryEase * 0.018
+                const pulse = 1 + Math.sin(elapsed * 1.35 + index * 0.55) * 0.018
+                const rush = enteringRef.current ? 1 + entryEase * (index + 1) * 0.03 : 1
+                ring.scale.setScalar(ring.userData.baseScale * pulse * rush)
+                ring.material.opacity = Math.max(
+                  0.05,
+                  (index % 3 === 1 ? 0.34 : 0.18) + entryEase * 0.22,
+                )
+              })
+
+              particles.rotation.z = elapsed * 0.018
+              particles.position.z = entryEase * 2.6
+              particleMaterial.opacity = 0.34 + entryEase * 0.28
+
+              spirals.forEach(({ line }, index) => {
+                line.rotation.z = elapsed * (0.06 + index * 0.026) + entryEase * 0.8
+                line.position.z = entryEase * 1.9
+              })
+
+              renderer.render(scene, camera)
+            }
+
+            raf = requestAnimationFrame(render)
+          }
+          raf = requestAnimationFrame(render)
+
+          cleanup = () => {
+            active = false
+            cancelAnimationFrame(raf)
+            resizeObserver.disconnect()
+            window.removeEventListener('pointermove', onPointerMove)
+            rings.forEach((ring) => ring.geometry.dispose())
+            ringMaterials.forEach((material) => material.dispose())
+            spirals.forEach(({ geometry }) => geometry.dispose())
+            ribbonMaterial.dispose()
+            accentRibbonMaterial.dispose()
+            particleGeometry.dispose()
+            particleMaterial.dispose()
+            renderer.dispose()
+            renderer.domElement.remove()
+          }
+        })
+        .catch(() => {
+          // CSS layers keep the entrance usable if WebGL initialization is unavailable.
+        })
+    }
+
+    const removeStartListeners = () => {
+      window.removeEventListener('pointermove', startScene)
+      window.removeEventListener('pointerdown', startScene)
+      window.removeEventListener('keydown', startScene)
+    }
+    window.addEventListener('pointermove', startScene, { passive: true })
+    window.addEventListener('pointerdown', startScene, { passive: true })
+    window.addEventListener('keydown', startScene)
 
     return () => {
       active = false
+      removeStartListeners()
       cleanup()
     }
   }, [enabled])

@@ -411,6 +411,16 @@ function App() {
     setShowEntryReveal(false)
   }, [])
 
+  if (showEntryReveal) {
+    return (
+      <div className="site-shell relative isolate min-h-screen text-slate-950 dark:text-white">
+        <Suspense fallback={<div className="entry-reveal" aria-hidden="true" />}>
+          <EntryReveal enableThree={enhancedVisuals} onDismiss={dismissEntryReveal} show />
+        </Suspense>
+      </div>
+    )
+  }
+
   return (
     <div className="site-shell relative isolate min-h-screen text-slate-950 transition-colors duration-500 dark:text-white">
       <a
@@ -428,11 +438,6 @@ function App() {
       <ScrollProgress />
       <InkWipe enabled={enhancedVisuals} trigger={route} />
       <BrushCursor />
-      {showEntryReveal && (
-        <Suspense fallback={<div className="entry-reveal" aria-hidden="true" />}>
-          <EntryReveal enableThree={enhancedVisuals} onDismiss={dismissEntryReveal} show />
-        </Suspense>
-      )}
       <Header
         darkMode={darkMode}
         language={language}
@@ -453,7 +458,7 @@ function App() {
       >
         {hasSecondaryAtmosphere && <SecondaryRouteAtmosphere route={primaryRoute} />}
         <AnimatePresence mode="wait">
-          {route === 'home' && <HomePage enableThree={enhancedVisuals && !showEntryReveal} key="home" language={language} />}
+          {route === 'home' && <HomePage enableThree={enhancedVisuals} key="home" language={language} />}
           {route === 'portfolio' && <PortfolioPage key="portfolio" language={language} />}
           {route.startsWith('portfolio/') && (
             <PortfolioCasePage key={route} language={language} route={route} />
