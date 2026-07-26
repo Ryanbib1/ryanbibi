@@ -72,14 +72,13 @@ function EntryReveal({ enableThree = true, onDismiss, show }) {
               <span>Life OS</span>
             </div>
             <button
-              aria-label="Enter 进入 ryanbibi digital garden"
               className="entry-reveal-enter"
               disabled={isEntering}
               onClick={beginEntry}
               type="button"
             >
               <span>{isEntering ? 'Entering' : 'Enter'}</span>
-              <span aria-hidden="true">{isEntering ? '穿越中' : '进入'}</span>
+              <span>{isEntering ? '穿越中' : '进入'}</span>
             </button>
           </div>
           <div className="entry-reveal-tunnel" />

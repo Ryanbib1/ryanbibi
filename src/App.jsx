@@ -564,13 +564,16 @@ function Header({ darkMode, language, route, setDarkMode, setLanguage }) {
       >
         {routes.map((item) => {
           const Icon = item.icon
+          const fullLabel = item.label.slice(1)
+          const accessibleLabel =
+            item.shortLabel === fullLabel ? fullLabel : `${item.shortLabel} / ${fullLabel}`
           return (
             <a
               aria-current={primaryRoute === item.key ? 'page' : undefined}
-              aria-label={item.label.slice(1)}
+              aria-label={accessibleLabel}
               key={item.key}
               href={`#/${item.key}`}
-              title={item.label.slice(1)}
+              title={fullLabel}
               className={cn(
                 'grid min-h-12 min-w-0 place-items-center gap-0.5 rounded-lg border px-1 py-1.5 transition sm:flex sm:min-h-11 sm:justify-center sm:gap-2 sm:px-2',
                 primaryRoute === item.key
