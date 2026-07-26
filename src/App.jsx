@@ -2801,7 +2801,7 @@ function WorkDetailPage({ language, route }) {
           {work.title}
         </h1>
         <p className="mt-2 font-mono text-sm uppercase tracking-wide text-ink-faint">{work.en}</p>
-        <p className="mt-6 max-w-2xl text-lg leading-8 text-ink-soft">{work.blurb}</p>
+        <p className="mt-6 max-w-2xl text-lg leading-8 text-ink-soft">{work.blurb[language]}</p>
         <div className="mt-7 rounded-lg border border-dashed border-line-strong bg-surface-sunk/60 p-5 dark:border-white/15 dark:bg-white/[0.04]">
           <p className="font-mono text-xs uppercase text-cinnabar">
             {work.status === 'wip' ? 'In progress' : 'Concept'}

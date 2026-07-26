@@ -338,7 +338,7 @@ export default function GithubRoute({ language = 'en' }) {
                 <h3 className="mt-2 font-serif text-2xl font-semibold text-ink sm:text-3xl">
                   {isZh ? work.title : work.en}
                 </h3>
-                <p className="mt-3 max-w-xl text-sm leading-6 text-ink-soft">{work.tagline}</p>
+                <p className="mt-3 max-w-xl text-sm leading-6 text-ink-soft">{work.tagline[language]}</p>
                 <div className="mt-5 flex flex-wrap items-center justify-between gap-3">
                   <span className="flex flex-wrap gap-2">
                     {work.tags.slice(0, 3).map((tag) => (
