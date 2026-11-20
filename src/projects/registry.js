@@ -1,3 +1,5 @@
+import { connectedProjects } from './connectedProjects.js'
+
 // ── Works / sub-project registry ───────────────────────────────────────────
 // Add a new work = append one entry here. Nothing else is required for it to
 // show up in the /lab index.
@@ -11,6 +13,7 @@
 //                 loads it in a full-bleed <iframe> — fully isolated, so its
 //                 JS / CSS / globals never touch the ink-wash site.
 //   'external'  → hosted elsewhere; `url` opens in a new tab.
+//   'project'   → bilingual overview with an explicit, verified access mode.
 //
 // status:
 //   'live'    → ready; the card links straight into the experience
@@ -18,6 +21,7 @@
 //   'concept' → placeholder; shown on the index, not clickable-through
 
 export const works = [
+  ...connectedProjects,
   {
     slug: 'liuguang',
     title: '流光',

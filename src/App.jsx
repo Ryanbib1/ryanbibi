@@ -1,3 +1,5 @@
+import ConnectedProject from './projects/ConnectedProject.jsx'
+import { projectAccessLabel } from './projects/connectedProjects.js'
 /* eslint-disable react-refresh/only-export-components */
 import { AnimatePresence, motion, useScroll } from 'framer-motion'
 import {
@@ -2480,6 +2482,11 @@ function WorkIndexPage({ language = 'en' }) {
   const isZh = language === 'zh'
   const groups = [
     {
+      key: 'projects',
+      title: isZh ? '一起做过的项目' : 'Projects we built',
+      description: isZh ? '查看原作与体验方式，区分公开应用、本地原型和扩展。' : 'Explore original projects and their access: public apps, local prototypes, and extensions.',
+    },
+    {
       key: 'signature',
       title: isZh ? '标志性实验' : 'Signature experiments',
       description: isZh
@@ -2590,12 +2597,14 @@ function WorkCard({ language, work }) {
         : 'text-ink-faint'
   const primaryTitle = isZh ? work.title : work.en
   const statusLabel =
+    work.type === 'project' ? projectAccessLabel(work, language) :
     work.status === 'live'
       ? isZh
         ? '可体验'
         : 'Live'
       : STATUS_LABEL[work.status]
   const actionLabel =
+    work.type === 'project' ? (isZh ? '查看作品与体验方式' : 'View project & access') :
     work.type === 'component'
       ? isZh
         ? '查看案例'
@@ -2616,7 +2625,7 @@ function WorkCard({ language, work }) {
           <span className="font-mono text-[11px] text-ink-faint">{work.year}</span>
         </div>
 
-        <div className="mt-3 flex items-baseline gap-2.5">
+        <div className="mt-3 flex flex-wrap items-baseline gap-2.5">
           <h2 className="font-serif text-2xl font-semibold text-ink" data-no-translate>
             {primaryTitle}
           </h2>
@@ -2768,6 +2777,7 @@ function WorkDetailPage({ language, route }) {
   const work = findWork(slug)
 
   if (!work) return <WorkIndexPage language={language} />
+  if (work.type === 'project') return <ConnectedProject work={work} language={language} />
 
   // Ready works render by `type`: a React component, or a fully isolated iframe.
   if (work.status === 'live') {
